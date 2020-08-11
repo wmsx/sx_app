@@ -11,4 +11,16 @@ enum ViewStateErrorType {
   unauthorizedError, // 未授权(一般为未登录)
 }
 
-class ViewStateError {}
+class ViewStateError {
+  ViewStateErrorType _errorType;
+  String message;
+  String errorMessage;
+
+  ViewStateError(this._errorType, {this.message, this.errorMessage}) {
+    _errorType ??= ViewStateErrorType.defaultError;
+    message ??= errorMessage;
+  }
+
+  ViewStateErrorType get errorType => _errorType;
+
+}
