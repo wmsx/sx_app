@@ -29,6 +29,18 @@ class ViewStateModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void setBusy() {
+    viewState = ViewState.busy;
+  }
+
+  void setEmpty() {
+    viewState = ViewState.empty;
+  }
+
+  void setIdle() {
+    viewState = ViewState.idle;
+  }
+
   ViewStateError get viewStateError => _viewStateError;
 
   /// [e]分类Error和Exception两种
@@ -41,7 +53,7 @@ class ViewStateModel with ChangeNotifier {
         errorType = ViewStateErrorType.networkTimeoutError;
         message = e.error;
       } else if (e.type == DioErrorType.RESPONSE) {
-         // incorrect status, such as 404, 503...
+        // incorrect status, such as 404, 503...
         message = e.error;
       } else if (e.type == DioErrorType.CANCEL) {
         message = e.error;
