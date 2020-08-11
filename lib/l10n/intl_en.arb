@@ -1,0 +1,7 @@
+{
+  "viewStateMessageNetworkError": "Load Failed,Check network ",
+  "viewStateButtonRetry": "Retry",
+  "viewStateMessageUnAuth": "Not sign in yet",
+  "viewStateButtonLogin": "Sign In",
+  "viewStateMessageError": "Load Failed"
+}

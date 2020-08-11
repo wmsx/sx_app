@@ -26,13 +26,13 @@ class _HomePageState extends State<HomePage>
           controller: _tabController,
           tabs: [
             Tab(
-              text: '1xxxxxxxxxxxxxxxxxxx',
+              text: '1xxxxxxx',
             ),
             Tab(
-              text: '2xxxxxxxxxxxxxxxxxx',
+              text: '2xxxxxxxxx',
             ),
             Tab(
-              text: '3xxxxxxxxxxxxxxx',
+              text: '3xxxxxxx',
             ),
           ],
         ),

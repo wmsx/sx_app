@@ -1,0 +1,7 @@
+{
+  "viewStateMessageNetworkError": "网络连接异常,请检查网络或稍后重试",
+  "viewStateButtonRetry": "重试",
+  "viewStateMessageUnAuth": "未登录",
+  "viewStateButtonLogin": "登录",
+  "viewStateMessageError": "加载失败"
+}
