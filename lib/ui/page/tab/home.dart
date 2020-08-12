@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage>
         return DefaultTabController(
           length: categories.length,
           child: Scaffold(
+            backgroundColor: Color(0xFFEDF0F2),
             appBar: AppBar(
               title: TabBar(
                 isScrollable: true,

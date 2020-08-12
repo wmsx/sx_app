@@ -44,6 +44,7 @@ class _PostListPageState extends State<PostListPage> {
           controller: model.refreshController,
           onRefresh: model.refresh,
           onLoading: model.loadMore,
+          enablePullUp: true,
           child: ListView.builder(
               itemCount: model.list.length,
               itemBuilder: (context, index) {

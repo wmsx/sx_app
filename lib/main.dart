@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        scaffoldBackgroundColor: Color(0xFFFEFEFE),
+        brightness: Brightness.light,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MainPage(),

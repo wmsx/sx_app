@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sx_app/provider/view_state_list_model.dart';
 
 abstract class ViewStateLastIdRefreshListModel<T>
     extends ViewStateListModel<T> {
   static int firstId = 0;
-  static int pageSize = 20;
+  static int pageSize = 4;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -27,6 +28,7 @@ abstract class ViewStateLastIdRefreshListModel<T>
         onCompleted(data);
         list.clear();
         list.addAll(data);
+        _lastId = getId(data[data.length - 1]);
         refreshController.refreshCompleted();
         if (data.length < pageSize) {
           refreshController.loadNoData();
@@ -52,11 +54,13 @@ abstract class ViewStateLastIdRefreshListModel<T>
         onCompleted(data);
         list.addAll(data);
         _lastId = getId(data[data.length - 1]);
+        debugPrint("get _lastId: $_lastId");
         if (data.length < pageSize) {
           refreshController.loadNoData();
         } else {
           refreshController.loadComplete();
         }
+        notifyListeners();
       }
       return data;
     } catch (e, s) {
