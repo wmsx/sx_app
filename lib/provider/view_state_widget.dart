@@ -14,6 +14,34 @@ class ViewStateBusyWidget extends StatelessWidget {
   }
 }
 
+/// 页面无数据
+class ViewStateEmptyWidget extends StatelessWidget {
+  final String message;
+  final Widget image;
+  final Widget buttonText;
+  final VoidCallback onPressed;
+
+  const ViewStateEmptyWidget(
+      {Key key,
+      this.image,
+      this.message,
+      this.buttonText,
+      @required this.onPressed})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewStateWidget(
+      onPressed: this.onPressed,
+      image: image ??
+          const Icon(IconFonts.pageEmpty, size: 100, color: Colors.grey),
+      title: message ?? S.of(context).viewStateMessageEmpty,
+      buttonText: buttonText,
+      buttonTextData: S.of(context).viewStateButtonRefresh,
+    );
+  }
+}
+
 // 错误Widget
 class ViewStateErrorWidget extends StatelessWidget {
   final ViewStateError error;

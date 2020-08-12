@@ -22,7 +22,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "viewStateButtonLogin" : MessageLookupByLibrary.simpleMessage("Sign In"),
+    "viewStateButtonRefresh" : MessageLookupByLibrary.simpleMessage("Refresh"),
     "viewStateButtonRetry" : MessageLookupByLibrary.simpleMessage("Retry"),
+    "viewStateMessageEmpty" : MessageLookupByLibrary.simpleMessage("Nothing Found"),
     "viewStateMessageError" : MessageLookupByLibrary.simpleMessage("Load Failed"),
     "viewStateMessageNetworkError" : MessageLookupByLibrary.simpleMessage("Load Failed,Check network "),
     "viewStateMessageUnAuth" : MessageLookupByLibrary.simpleMessage("Not sign in yet")

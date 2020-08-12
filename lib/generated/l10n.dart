@@ -82,6 +82,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Refresh`
+  String get viewStateButtonRefresh {
+    return Intl.message(
+      'Refresh',
+      name: 'viewStateButtonRefresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nothing Found`
+  String get viewStateMessageEmpty {
+    return Intl.message(
+      'Nothing Found',
+      name: 'viewStateMessageEmpty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

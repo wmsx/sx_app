@@ -3,5 +3,7 @@
   "viewStateButtonRetry": "Retry",
   "viewStateMessageUnAuth": "Not sign in yet",
   "viewStateButtonLogin": "Sign In",
-  "viewStateMessageError": "Load Failed"
+  "viewStateMessageError": "Load Failed",
+  "viewStateButtonRefresh": "Refresh",
+  "viewStateMessageEmpty": "Nothing Found"
 }

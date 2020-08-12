@@ -2,7 +2,7 @@ class Category {
   int id;
   String name;
 
-  static Category fromMap(Map<String, dynamic> map) {
+  static Category fromJson(Map<String, dynamic> map) {
     if (map == null) return null;
     Category category = Category();
     category.id = map['id'];
