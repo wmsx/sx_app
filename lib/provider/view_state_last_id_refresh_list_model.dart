@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sx_app/provider/view_state_list_model.dart';
 
@@ -54,7 +53,6 @@ abstract class ViewStateLastIdRefreshListModel<T>
         onCompleted(data);
         list.addAll(data);
         _lastId = getId(data[data.length - 1]);
-        debugPrint("get _lastId: $_lastId");
         if (data.length < pageSize) {
           refreshController.loadNoData();
         } else {
