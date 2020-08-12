@@ -33,6 +33,11 @@ class ViewStateModel with ChangeNotifier {
     viewState = ViewState.busy;
   }
 
+  bool get isBusy => viewState == ViewState.busy;
+  bool get isEmpty => viewState == ViewState.empty;
+  bool get isIdle => viewState == ViewState.idle;
+  bool get isError => viewState == ViewState.error;
+
   void setEmpty() {
     viewState = ViewState.empty;
   }
