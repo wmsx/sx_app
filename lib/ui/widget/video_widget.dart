@@ -17,9 +17,14 @@ class _VideoWidgetState extends State<VideoWidget> {
   bool _isPlaying = false;
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    debugPrint('url: ${widget.url}');
     _controller = VideoPlayerController.network(widget.url)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
@@ -32,14 +37,26 @@ class _VideoWidgetState extends State<VideoWidget> {
       ..initialize().then((_) {
         setState(() {});
       });
-    _controller.play();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: _controller.value.aspectRatio,
-      child: VideoPlayer(_controller),
+    return GestureDetector(
+      onTap: () {
+        debugPrint('===== $_isPlaying');
+        if (_isPlaying) {
+          _controller.pause();
+        } else {
+          _controller.play();
+        }
+      },
+      onPanEnd: (details) {
+        _controller.pause();
+      },
+      child: AspectRatio(
+        aspectRatio: _controller.value.aspectRatio,
+        child: VideoPlayer(_controller),
+      ),
     );
   }
 }

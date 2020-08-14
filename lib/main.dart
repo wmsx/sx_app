@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
-import 'provider/view_state_widget.dart';
 import 'ui/page/tab/personal.dart';
 import 'ui/page/tab/comunity.dart';
 import 'ui/page/tab/explore.dart';
@@ -57,7 +56,6 @@ class _MainPageState extends State<MainPage> {
           ExplorePage(),
           CommunityPage(),
           PersonalPage(),
-          ViewStateBusyWidget(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -79,10 +77,6 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             title: Text('我的'),
             icon: Icon(Icons.person),
-          ),
-          BottomNavigationBarItem(
-            title: Text('测试'),
-            icon: Icon(Icons.text_snippet),
           ),
         ],
         currentIndex: _page,
