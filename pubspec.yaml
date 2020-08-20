@@ -23,6 +23,8 @@ dependencies:
   flutter_swiper: ^1.1.6
   common_utils: ^1.2.1
   video_player: ^0.10.11+2
+  dio_cookie_manager: ^1.0.0
+  cookie_jar: ^1.0.1
 
 dev_dependencies:
   flutter_test:

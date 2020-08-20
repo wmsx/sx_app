@@ -1,4 +1,6 @@
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:sx_app/config/net/api.dart';
 
 final Http http = Http();
@@ -6,8 +8,10 @@ final Http http = Http();
 class Http extends BaseHttp {
   @override
   void init() {
+    var cookieJar = CookieJar();
     options.baseUrl = 'http://api.wemeng.com/';
-    interceptors..add(ApiInterceptor());
+    // options.baseUrl = 'http://192.168.0.199:8080/';
+    interceptors..add(ApiInterceptor())..add(CookieManager(cookieJar));
   }
 }
 
@@ -32,8 +36,8 @@ class ResponseData extends BaseResponseData {
   bool get success => 0 == code;
 
   ResponseData.fromJson(Map<String, dynamic> json) {
-    code = json['errorCode'];
-    message = json['errorMsg'];
+    code = json['code'];
+    message = json['message'];
     data = json['data'];
   }
 }

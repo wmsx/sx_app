@@ -21,7 +21,7 @@ class MockSXRepository {
         'id': 1,
         'type': 0,
         'title': '如何实现延时队列?',
-        'createAt': 1597239548000,
+        'CreateAt': 1597239548000,
         'viewCount': 1004,
         'menger': {
           'id': 1,
@@ -47,7 +47,7 @@ class MockSXRepository {
         'id': 2,
         'type': 0,
         'title': 'RocketMQ如何存储消息',
-        'createAt': 1597239548000,
+        'CreateAt': 1597239548000,
         'viewCount': 1003,
         'menger': {
           'id': 1,
@@ -73,7 +73,7 @@ class MockSXRepository {
         'id': 3,
         'type': 0,
         'title': 'Golang GMP调度',
-        'createAt': 1597239548000,
+        'CreateAt': 1597239548000,
         'viewCount': 1002,
         'menger': {
           'id': 1,
@@ -99,7 +99,7 @@ class MockSXRepository {
         'id': 4,
         'type': 0,
         'title': 'IM系统如何存储数据',
-        'createAt': 1597239548000,
+        'CreateAt': 1597239548000,
         'viewCount': 1001,
         'menger': {
           'id': 1,
@@ -125,7 +125,7 @@ class MockSXRepository {
         'id': 5,
         'type': 0,
         'title': 'flutter布局详解',
-        'createAt': 1597239548000,
+        'CreateAt': 1597239548000,
         'viewCount': 1000,
         'menger': {
           'id': 1,

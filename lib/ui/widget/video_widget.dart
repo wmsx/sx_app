@@ -25,6 +25,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
+    debugPrint('====${widget.url}');
     _controller = VideoPlayerController.network(widget.url)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;

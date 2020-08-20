@@ -43,7 +43,9 @@ class PostWidget extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(2.0),
                             child: Text(
-                              '${post.viewCount} 次观看',
+                              TimelineUtil.format(post.createAt,
+                                  locale: 'zh_normal',
+                                  dayFormat: DayFormat.Common),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey,
@@ -53,9 +55,7 @@ class PostWidget extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(2.0),
                             child: Text(
-                              TimelineUtil.format(post.createAt,
-                                  locale: 'zh_normal',
-                                  dayFormat: DayFormat.Common),
+                              '${post.onlookerCount} 人围观',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey,
