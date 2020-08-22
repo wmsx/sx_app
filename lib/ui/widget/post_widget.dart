@@ -71,12 +71,13 @@ class PostWidget extends StatelessWidget {
                       itemCount: post.items.length,
                       itemBuilder: (context, index) {
                         PostItem item = post.items[index];
-                        if (item.type == 1) {
-                          return Image.network(
-                            item.url,
-                            fit: BoxFit.cover,
-                          );
-                        }
+                        // return Image.asset('assets/images/274e1dd51d03.jpg');
+                        // if (item.type == 1) {
+                        //   return Image.network(
+                        //     item.url,
+                        //     fit: BoxFit.cover,
+                        //   );
+                        // }
                         return VideoWidget(
                           url: item.url,
                         );

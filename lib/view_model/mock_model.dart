@@ -1,5 +1,5 @@
 class MockModel {
-  bool _mock = false;
+  bool _mock = true;
 
   set mock(bool mock) {
     _mock = mock;

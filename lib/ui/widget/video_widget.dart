@@ -1,4 +1,6 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:sx_app/ui/widget/video_control.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
@@ -25,8 +27,8 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-    debugPrint('====${widget.url}');
-    _controller = VideoPlayerController.network(widget.url)
+    _controller = VideoPlayerController.asset('assets/videos/trail.mp4')
+      // _controller = VideoPlayerController.network(widget.url)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
         if (isPlaying != _isPlaying) {
@@ -42,22 +44,35 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        debugPrint('===== $_isPlaying');
-        if (_isPlaying) {
-          _controller.pause();
-        } else {
-          _controller.play();
-        }
-      },
-      onPanEnd: (details) {
-        _controller.pause();
-      },
-      child: AspectRatio(
+    return Chewie(
+      controller: ChewieController(
+        videoPlayerController: _controller,
+        autoPlay: false,
+        looping: true,
         aspectRatio: _controller.value.aspectRatio,
-        child: VideoPlayer(_controller),
+        customControls: MaterialControls(),
       ),
     );
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       debugPrint('===== $_isPlaying');
+  //       if (_isPlaying) {
+  //         _controller.pause();
+  //       } else {
+  //         _controller.play();
+  //       }
+  //     },
+  //     onPanEnd: (details) {
+  //       _controller.pause();
+  //     },
+  //     child: AspectRatio(
+  //       aspectRatio: _controller.value.aspectRatio,
+  //       child: VideoPlayer(_controller),
+  //     ),
+  //   );
+  // }
 }

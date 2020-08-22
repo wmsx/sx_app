@@ -25,6 +25,7 @@ dependencies:
   video_player: ^0.10.11+2
   dio_cookie_manager: ^1.0.0
   cookie_jar: ^1.0.1
+  chewie: ^0.9.10
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +36,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/videos/
   fonts:
     - family: iconfont
       fonts:
