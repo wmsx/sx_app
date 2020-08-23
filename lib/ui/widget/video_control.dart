@@ -15,7 +15,7 @@ class MaterialControls extends StatefulWidget {
 }
 
 class _MaterialControlsState extends State<MaterialControls> {
-  final barHeight = 24.0;
+  final barHeight = 2.0;
 
   bool _hideStuff = false;
 
@@ -68,6 +68,26 @@ class _MaterialControlsState extends State<MaterialControls> {
     );
   }
 
+  GestureDetector _buildExpandButton() {
+    return GestureDetector(
+      child: AnimatedOpacity(
+        opacity: _hideStuff ? 0.0 : 1.0,
+        duration: Duration(milliseconds: 300),
+        child: Container(
+          height: barHeight,
+          child: Center(
+            child: Icon(
+              chewieController.isFullScreen
+                  ? Icons.fullscreen_exit
+                  : Icons.fullscreen,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Expanded _buildHitArea() {
     return Expanded(
       child: GestureDetector(
@@ -84,15 +104,17 @@ class _MaterialControlsState extends State<MaterialControls> {
         child: Container(
           child: Center(
             child: AnimatedOpacity(
-              opacity:
-                  _latestValue != null && !_latestValue.isPlaying ? 1.0 : 0.0,
+              opacity: _hideStuff ? 0.0 : 1.0,
               duration: Duration(milliseconds: 300),
               child: GestureDetector(
-                child: Padding(
-                  padding: EdgeInsets.all(12.0),
+                onTap: () {
+                  _playPause();
+                },
+                child: Opacity(
+                  opacity: 0.5,
                   child: Icon(
-                    Icons.play_arrow,
-                    size: 120.0,
+                    controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                    size: 100.0,
                   ),
                 ),
               ),
@@ -121,31 +143,18 @@ class _MaterialControlsState extends State<MaterialControls> {
         height: barHeight,
         child: Row(
           children: [
-            _buildPlayPause(controller),
             _buildProgressBar(),
+            _buildExpandButton(),
           ],
         ),
       ),
     );
   }
 
-  GestureDetector _buildPlayPause(VideoPlayerController controller) {
-    return GestureDetector(
-      onTap: _playPause,
-      child: Icon(
-        controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        color: Colors.white,
-      ),
-    );
-  }
-
   Widget _buildProgressBar() {
     return Expanded(
-      child: Padding(
-        padding: EdgeInsets.only(right: 20.0),
-        child: VideoProgressBar(
-          controller,
-        ),
+      child: VideoProgressBar(
+        controller,
       ),
     );
   }
