@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '私享',
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

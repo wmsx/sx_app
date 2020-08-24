@@ -20,6 +20,8 @@ class _MaterialControlsState extends State<MaterialControls> {
   bool _hideStuff = false;
 
   Timer _hideTimer;
+  Timer _showAfterExpandCollapseTimer;
+
   VideoPlayerValue _latestValue;
 
   VideoPlayerController controller;
@@ -31,10 +33,23 @@ class _MaterialControlsState extends State<MaterialControls> {
     chewieController = ChewieController.of(context);
     controller = chewieController.videoPlayerController;
     if (_oldController != chewieController) {
+      _dispose();
       _initialize();
     }
 
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _dispose();
+    super.dispose();
+  }
+
+  void _dispose() {
+    controller.removeListener(_updateState);
+    _hideTimer?.cancel();
+    _showAfterExpandCollapseTimer?.cancel();
   }
 
   Future<Null> _initialize() async {
@@ -79,7 +94,6 @@ class _MaterialControlsState extends State<MaterialControls> {
             opacity: _hideStuff ? 0.0 : 1.0,
             duration: Duration(milliseconds: 300),
             child: Container(
-              alignment: Alignment.centerRight,
               padding: EdgeInsets.only(
                 left: 8.0,
                 right: 8.0,
@@ -100,36 +114,16 @@ class _MaterialControlsState extends State<MaterialControls> {
   }
 
   void _onExpandCollapse() {
-    setState(() {
-      _hideStuff = true;
+    chewieController.toggleFullScreen();
+    chewieController.pause();
 
-      chewieController.toggleFullScreen();
-      // _showAfterExpandCollapseTimer = Timer(Duration(milliseconds: 300), () {
-      //   setState(() {
-      //     _cancelAndRestartTimer();
-      //   });
-      // });
-    });
-  }
-
-  GestureDetector _buildExpandButton() {
-    return GestureDetector(
-      child: AnimatedOpacity(
-        opacity: _hideStuff ? 0.0 : 1.0,
-        duration: Duration(milliseconds: 300),
-        child: Container(
-          height: barHeight,
-          child: Center(
-            child: Icon(
-              chewieController.isFullScreen
-                  ? Icons.fullscreen_exit
-                  : Icons.fullscreen,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
+    // setState(() {
+    //   _showAfterExpandCollapseTimer = Timer(Duration(milliseconds: 300), () {
+    //     setState(() {
+    //       _cancelAndRestartTimer();
+    //     });
+    //   });
+    // });
   }
 
   Expanded _buildHitArea() {
@@ -159,6 +153,7 @@ class _MaterialControlsState extends State<MaterialControls> {
                   child: Icon(
                     controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
                     size: 100.0,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -172,9 +167,18 @@ class _MaterialControlsState extends State<MaterialControls> {
   void _playPause() {
     setState(() {
       if (controller.value.isPlaying) {
+        _hideStuff = false;
+        _hideTimer?.cancel();
         controller.pause();
       } else {
-        controller.play();
+        _cancelAndRestartTimer();
+        if (!controller.value.initialized) {
+          controller.initialize().then((_) {
+            controller.play();
+          });
+        } else {
+          controller.play();
+        }
       }
     });
   }
@@ -188,7 +192,6 @@ class _MaterialControlsState extends State<MaterialControls> {
         child: Row(
           children: [
             _buildProgressBar(),
-            _buildExpandButton(),
           ],
         ),
       ),
@@ -204,7 +207,6 @@ class _MaterialControlsState extends State<MaterialControls> {
   }
 
   void _cancelAndRestartTimer() {
-    debugPrint('_cancelAndRestartTimer');
     _hideTimer?.cancel();
     _startHideTimer();
     setState(() {

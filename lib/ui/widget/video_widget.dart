@@ -27,8 +27,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/videos/trail.mp4')
-      // _controller = VideoPlayerController.network(widget.url)
+    _controller = VideoPlayerController.network(widget.url)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
         if (isPlaying != _isPlaying) {
@@ -44,35 +43,17 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Chewie(
-      controller: ChewieController(
-        videoPlayerController: _controller,
-        autoPlay: false,
-        looping: true,
-        aspectRatio: _controller.value.aspectRatio,
-        customControls: MaterialControls(),
+    return Container(
+      color: Colors.black,
+      child: Chewie(
+        controller: ChewieController(
+          videoPlayerController: _controller,
+          autoPlay: false,
+          looping: true,
+          aspectRatio: _controller.value.aspectRatio,
+          customControls: MaterialControls(),
+        ),
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return GestureDetector(
-  //     onTap: () {
-  //       debugPrint('===== $_isPlaying');
-  //       if (_isPlaying) {
-  //         _controller.pause();
-  //       } else {
-  //         _controller.play();
-  //       }
-  //     },
-  //     onPanEnd: (details) {
-  //       _controller.pause();
-  //     },
-  //     child: AspectRatio(
-  //       aspectRatio: _controller.value.aspectRatio,
-  //       child: VideoPlayer(_controller),
-  //     ),
-  //   );
-  // }
 }

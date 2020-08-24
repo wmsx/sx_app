@@ -92,11 +92,11 @@ class _ProgressBarPainter extends CustomPainter {
       ),
       colors.playedPaint,
     );
-    canvas.drawCircle(
-      Offset(playedPart, size.height / 2 + height / 2),
-      height * 3,
-      colors.handlePaint,
-    );
+    // canvas.drawCircle(
+    //   Offset(playedPart, size.height / 2 + height / 2),
+    //   height * 3,
+    //   colors.handlePaint,
+    // );
   }
 
   @override
