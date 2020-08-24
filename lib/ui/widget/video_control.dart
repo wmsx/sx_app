@@ -60,12 +60,56 @@ class _MaterialControlsState extends State<MaterialControls> {
           child: Column(
             children: [
               _buildHitArea(),
+              _buildFullScreen(),
               _buildBottomBar(context),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildFullScreen() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        GestureDetector(
+          onTap: _onExpandCollapse,
+          child: AnimatedOpacity(
+            opacity: _hideStuff ? 0.0 : 1.0,
+            duration: Duration(milliseconds: 300),
+            child: Container(
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.only(
+                left: 8.0,
+                right: 8.0,
+              ),
+              child: Center(
+                child: Icon(
+                  chewieController.isFullScreen
+                      ? Icons.fullscreen_exit_sharp
+                      : Icons.fullscreen_sharp,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _onExpandCollapse() {
+    setState(() {
+      _hideStuff = true;
+
+      chewieController.toggleFullScreen();
+      // _showAfterExpandCollapseTimer = Timer(Duration(milliseconds: 300), () {
+      //   setState(() {
+      //     _cancelAndRestartTimer();
+      //   });
+      // });
+    });
   }
 
   GestureDetector _buildExpandButton() {
