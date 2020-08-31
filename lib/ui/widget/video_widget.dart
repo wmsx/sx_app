@@ -50,6 +50,7 @@ class _VideoWidgetState extends State<VideoWidget> {
           videoPlayerController: _controller,
           autoPlay: false,
           looping: true,
+          allowedScreenSleep: false,
           aspectRatio: _controller.value.aspectRatio,
           customControls: MaterialControls(),
         ),

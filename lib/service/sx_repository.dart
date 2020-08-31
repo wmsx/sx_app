@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:sx_app/config/net/sx_api.dart';
 import 'package:sx_app/model/category.dart';
+import 'package:sx_app/model/disscuss_group.dart';
 import 'package:sx_app/model/post.dart';
 
 class SXRepository {
   static Future<List<Category>> fetchCategories() async {
     var response = await http.post('post/category/list');
-
-    debugPrint('${response.data}');
     return response.data
         .map<Category>((item) => Category.fromJson(item))
+        .toList();
+  }
+
+  static Future<List<DiscussGroup>> fetchDiscussGroup() async {
+    var response = await http.post('discuss/group/list');
+    return response.data
+        .map<DiscussGroup>((item) => DiscussGroup.fromJson(item))
         .toList();
   }
 
