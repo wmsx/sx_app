@@ -1,16 +1,24 @@
-# sx_app
+# 私享app
 
-A new Flutter project.
+使用flutter进行开发
 
-## Getting Started
+## 主要功能
 
-This project is a starting point for a Flutter application.
+* [x] 视频列表
+* [x] 视频播放
+* [ ] 聊天
+* [ ] 支付
 
-A few resources to get you started if this is your first Flutter project:
+## 截图
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+首页
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](doc/images/首页.png)
+
+聊天列表
+
+![](doc/images/聊天列表.png)
+
+聊天页面
+
+![](doc/images/聊天页面.png)
