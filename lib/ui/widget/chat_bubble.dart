@@ -79,7 +79,8 @@ class _ChatBubbleState extends State<ChatBubble> {
                   bottom: 10.0,
                 ),
           child: Text(
-            TimelineUtil.format(message.time),
+            TimelineUtil.format(message.time,
+                locale: 'zh', dayFormat: DayFormat.Simple),
             style: TextStyle(
               color: Theme.of(context).textTheme.title.color,
               fontSize: 10.0,

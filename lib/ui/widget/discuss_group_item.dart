@@ -1,3 +1,4 @@
+import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sx_app/model/disscuss_group.dart';
@@ -71,7 +72,8 @@ class _DiscussGroupItemState extends State<DiscussGroupItem> {
           children: <Widget>[
             SizedBox(height: 10),
             Text(
-              "${discussGroup.time}",
+              TimelineUtil.format(discussGroup.time,
+                  locale: 'zh', dayFormat: DayFormat.Simple),
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 11,

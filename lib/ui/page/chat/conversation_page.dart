@@ -76,7 +76,7 @@ class _ConversationPageState extends State<ConversationPage> {
                             contentPadding: EdgeInsets.all(10.0),
                             border: InputBorder.none,
                             enabledBorder: InputBorder.none,
-                            hintText: "Write your message...",
+                            hintText: "请输入...",
                             hintStyle: TextStyle(
                               fontSize: 15.0,
                               color: Theme.of(context).textTheme.title.color,
