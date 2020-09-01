@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sx_app/model/message.dart';
 
 class ChatBubble extends StatefulWidget {
-  final Message message;
+  final Msg message;
 
   const ChatBubble({Key key, this.message}) : super(key: key);
 
@@ -16,7 +16,7 @@ class ChatBubble extends StatefulWidget {
 class _ChatBubbleState extends State<ChatBubble> {
   @override
   Widget build(BuildContext context) {
-    Message message = widget.message;
+    Msg message = widget.message;
     final align =
         message.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
     final radius = message.isMe

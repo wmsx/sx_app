@@ -14,7 +14,7 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  List<Message> messages = List();
+  List<Msg> messages = List();
 
   @override
   Widget build(BuildContext context) {

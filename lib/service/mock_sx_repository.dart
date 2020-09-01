@@ -16,21 +16,21 @@ class MockSXRepository {
     return Future.value(categories);
   }
 
-  static Future<List<Message>> fetchMessages() async {
-    List<Message> messages = List();
+  static Future<List<Msg>> fetchMessages() async {
+    List<Msg> messages = List();
     messages
-      ..add(Message.fromJson(
+      ..add(Msg.fromJson(
           {'type': 0, 'content': "你好", 'isMe': false, 'time': 1598846749000}))
-      ..add(Message.fromJson(
+      ..add(Msg.fromJson(
           {'type': 0, 'content': '请您是谁?', 'isMe': false, 'time': 1598846749000}))
-      ..add(Message.fromJson({
+      ..add(Msg.fromJson({
         'type': 1,
         'content':
             'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
         'isMe': false,
         'time': 1598846749000
       }))
-      ..add(Message.fromJson(
+      ..add(Msg.fromJson(
           {'type': 0, 'content': '你好，我是你爸爸', 'isMe': true, 'time': 1598846749000}));
 
     return Future.value(messages);

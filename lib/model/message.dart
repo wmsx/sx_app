@@ -1,10 +1,10 @@
-class Message {
+class Msg {
   int type;
   String content;
   bool isMe;
   int time;
 
-  Message.fromJson(Map<String, dynamic> json) {
+  Msg.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     content = json['content'];
     isMe = json['isMe'];

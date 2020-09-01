@@ -26,6 +26,7 @@ dependencies:
   dio_cookie_manager: ^1.0.0
   cookie_jar: ^1.0.1
   chewie: ^0.9.10
+  device_info: ^0.4.2+7
 
 dev_dependencies:
   flutter_test:
