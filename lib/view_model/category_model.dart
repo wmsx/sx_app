@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sx_app/model/category.dart';
 import 'package:sx_app/provider/view_state_list_model.dart';
 import 'package:sx_app/service/mock_sx_repository.dart';

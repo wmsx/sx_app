@@ -15,31 +15,23 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ProviderWidget<SocketModel>(
-      model: SocketModel(),
-      onModelReady: (model) {
-        model.init();
-      },
-      builer: (context, model, child) {
-        return MaterialApp(
-          title: '私享',
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          theme: ThemeData(
-            primaryColor: Colors.pinkAccent[100],
-            scaffoldBackgroundColor: Color(0xFFFEFEFE),
-            brightness: Brightness.light,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: MainPage(),
-        );
-      },
+    return MaterialApp(
+      title: '私享',
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      theme: ThemeData(
+        primaryColor: Colors.pinkAccent[100],
+        scaffoldBackgroundColor: Color(0xFFFEFEFE),
+        brightness: Brightness.light,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MainPage(),
     );
   }
 }
@@ -53,7 +45,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   PageController _pageController;
-  int _page = 2;
+  int _page = 3;
 
   @override
   Widget build(BuildContext context) {

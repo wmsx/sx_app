@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:sx_app/model/disscuss_group.dart';
 import 'package:sx_app/provider/provider_widget.dart';
 import 'package:sx_app/provider/view_state_widget.dart';
 import 'package:sx_app/ui/widget/discuss_group_item.dart';
 import 'package:sx_app/view_model/discuss_group_list_model.dart';
+import 'package:sx_app/view_model/socket_model.dart';
 
 class CommunityPage extends StatefulWidget {
   @override
@@ -19,23 +18,24 @@ class _CommunityPageState extends State<CommunityPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ProviderWidget<DiscussGroupListModel>(
-      model: DiscussGroupListModel(),
-      onModelReady: (model) {
-        model.initData();
+    return ProviderWidget2<SocketModel, DiscussGroupListModel>(
+      model1: SocketModel(),
+      model2: DiscussGroupListModel(),
+      onModelReady: (socketModel, discussGroupListModel) {
+        socketModel.init();
+        discussGroupListModel.initData();
       },
-      builer: (context, model, child) {
-        if (model.isBusy) {
+      builder: (context, socketModel, discussGroupListModel, child) {
+        if (discussGroupListModel.isBusy) {
           return ViewStateBusyWidget();
         }
-        if (model.isError) {
+        if (discussGroupListModel.isError) {
           return ViewStateErrorWidget(
-            error: model.viewStateError,
-            onPressed: model.initData,
+            error: discussGroupListModel.viewStateError,
+            onPressed: discussGroupListModel.initData,
           );
         }
-
-        List<DiscussGroup> discussGroups = model.list;
+        List<DiscussGroup> discussGroups = discussGroupListModel.list;
         return Scaffold(
           appBar: AppBar(
             title: TextField(
