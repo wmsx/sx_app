@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sx_app/config/route_manager.dart';
+import 'package:sx_app/model/user.dart';
 import 'package:sx_app/ui/widget/gradient_border_cotainer.dart';
+import 'package:sx_app/view_model/user_model.dart';
 
 class PersonalPage extends StatefulWidget {
   @override
@@ -97,36 +101,51 @@ class UserHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GradientBorderContainer(
-            size: 80,
-            shape: BoxShape.circle,
-            image: NetworkImage(
-                'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg'),
-          ),
-          Text(
-            'username',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Consumer<UserModel>(
+        builder: (context, userModel, _) {
+          bool hasUser = userModel.hasUser;
+          User user = userModel.user;
+          return InkWell(
+            onTap: hasUser ? null : () {
+              Navigator.of(context).pushNamed(RouteName.login);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _buildCategory('收藏'),
-                _buildCategory('点赞'),
-                _buildCategory('讨论'),
+                GradientBorderContainer(
+                  size: 80,
+                  shape: BoxShape.circle,
+                  image: hasUser
+                      ? NetworkImage(user.avarar)
+                      : AssetImage('assets/images/default_avatar.png'),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  hasUser ? user.username : '未登录',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(height: 20),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildCategory('收藏'),
+                      _buildCategory('点赞'),
+                      _buildCategory('讨论'),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

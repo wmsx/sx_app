@@ -5,5 +5,12 @@
   "viewStateButtonLogin": "登录",
   "viewStateMessageError": "加载失败",
   "viewStateButtonRefresh": "刷新一下",
-  "viewStateMessageEmpty": "空空如也"
+  "viewStateMessageEmpty": "空空如也",
+  "userName": "用户名",
+  "password": "密码",
+  "signIn": "登录",
+  "toSignIn": "点我登录",
+  "noAccount": "还没账号? ",
+  "signUp": "注册",
+  "toSignUp": "去注册"
 }

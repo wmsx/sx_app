@@ -5,5 +5,11 @@
   "viewStateButtonLogin": "Sign In",
   "viewStateMessageError": "Load Failed",
   "viewStateButtonRefresh": "Refresh",
-  "viewStateMessageEmpty": "Nothing Found"
+  "viewStateMessageEmpty": "Nothing Found",
+  "userName": "Username",
+  "password": "password",
+  "signIn": "Sign In",
+  "toSignUp": "Sign Up",
+  "noAccount": "No Account ? "
+
 }

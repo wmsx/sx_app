@@ -21,6 +21,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "noAccount" : MessageLookupByLibrary.simpleMessage("还没账号? "),
+    "password" : MessageLookupByLibrary.simpleMessage("密码"),
+    "signIn" : MessageLookupByLibrary.simpleMessage("登录"),
+    "toSignUp" : MessageLookupByLibrary.simpleMessage("去注册"),
+    "userName" : MessageLookupByLibrary.simpleMessage("用户名"),
     "viewStateButtonLogin" : MessageLookupByLibrary.simpleMessage("登录"),
     "viewStateButtonRefresh" : MessageLookupByLibrary.simpleMessage("刷新一下"),
     "viewStateButtonRetry" : MessageLookupByLibrary.simpleMessage("重试"),
