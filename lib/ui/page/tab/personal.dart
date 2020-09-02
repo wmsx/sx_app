@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sx_app/config/route_manager.dart';
-import 'package:sx_app/model/user.dart';
+import 'package:sx_app/model/menger.dart';
 import 'package:sx_app/ui/widget/gradient_border_cotainer.dart';
 import 'package:sx_app/view_model/user_model.dart';
 
@@ -101,14 +101,16 @@ class UserHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Consumer<UserModel>(
+      child: Consumer<MengerModel>(
         builder: (context, userModel, _) {
-          bool hasUser = userModel.hasUser;
-          User user = userModel.user;
+          bool hasMenger = userModel.hasMenger;
+          Menger menger = userModel.menger;
           return InkWell(
-            onTap: hasUser ? null : () {
-              Navigator.of(context).pushNamed(RouteName.login);
-            },
+            onTap: hasMenger
+                ? null
+                : () {
+                    Navigator.of(context).pushNamed(RouteName.login);
+                  },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,15 +118,15 @@ class UserHeaderWidget extends StatelessWidget {
                 GradientBorderContainer(
                   size: 80,
                   shape: BoxShape.circle,
-                  image: hasUser
-                      ? NetworkImage(user.avarar)
+                  image: hasMenger
+                      ? NetworkImage(menger.avatar)
                       : AssetImage('assets/images/default_avatar.png'),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  hasUser ? user.username : '未登录',
+                  hasMenger ? menger.username : '未登录',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,

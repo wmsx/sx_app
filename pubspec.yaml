@@ -27,6 +27,9 @@ dependencies:
   cookie_jar: ^1.0.1
   chewie: ^0.9.10
   device_info: ^0.4.2+7
+  oktoast: ^2.3.2
+  shared_preferences: ^0.5.10
+  localstorage: ^3.0.2+5
 
 dev_dependencies:
   flutter_test:

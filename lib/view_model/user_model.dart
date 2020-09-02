@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:sx_app/model/user.dart';
+import 'package:sx_app/config/storage_manager.dart';
+import 'package:sx_app/model/menger.dart';
 
-class UserModel extends ChangeNotifier {
-  static const String kUser = 'sxUser';
+class MengerModel extends ChangeNotifier {
+  static const String kMenger = 'kMenger';
 
-  User _user;
+  Menger _menger;
 
-  User get user => _user;
+  Menger get menger => _menger;
 
-  bool get hasUser => user != null;
+  bool get hasMenger => _menger != null;
+
+  saveMenger(Menger menger) {
+    _menger = menger;
+    notifyListeners();
+    StorageManager.localStorage.setItem(kMenger, menger);
+  }
 }

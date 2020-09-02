@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sx_app/config/provider_manager.dart';
 import 'package:sx_app/config/route_manager.dart';
+import 'package:sx_app/config/storage_manager.dart';
 import 'constants.dart';
 import 'generated/l10n.dart';
 import 'ui/page/tab/personal.dart';
@@ -10,33 +12,37 @@ import 'ui/page/tab/comunity.dart';
 import 'ui/page/tab/explore.dart';
 import 'ui/page/tab/home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await StorageManager.init();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: providers,
-      child: MaterialApp(
-        title: '私享',
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        theme: ThemeData(
-          primaryColor: Colors.pinkAccent[100],
-          scaffoldBackgroundColor: scaffolColor,
-          brightness: Brightness.light,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+    return OKToast(
+      child: MultiProvider(
+        providers: providers,
+        child: MaterialApp(
+          title: '私享',
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          theme: ThemeData(
+            primaryColor: Colors.pinkAccent[100],
+            scaffoldBackgroundColor: scaffolColor,
+            brightness: Brightness.light,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          onGenerateRoute: Router.generateRoute,
+          initialRoute: RouteName.mainPage,
         ),
-        onGenerateRoute: Router.generateRoute,
-        initialRoute: RouteName.mainPage,
       ),
     );
   }

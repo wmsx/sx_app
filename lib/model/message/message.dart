@@ -4,12 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:sx_app/constants.dart';
 import 'package:sx_app/utils/convert_util.dart';
 
-Map<int, IMessage Function()> messageCreators = {
+typedef MessageCreator = IMessage Function();
+
+Map<int, MessageCreator> messageCreators = {
   MSG_AUTH_TOKEN: () => AuthenticationToken(),
   MSG_AUTH_STATUS: () => AuthenticationStatus(),
 };
 
-Map<int, IMessage Function()> vmessageCreators = {
+Map<int, MessageCreator> vmessageCreators = {
   MSG_AUTH_TOKEN: () => AuthenticationToken(),
 };
 

@@ -2,9 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:sx_app/config/net/sx_api.dart';
 import 'package:sx_app/model/category.dart';
 import 'package:sx_app/model/disscuss_group.dart';
+import 'package:sx_app/model/menger.dart';
 import 'package:sx_app/model/post.dart';
 
 class SXRepository {
+  static Future<Menger> register(String loginName, String password) async {
+    var response = await http.post('menger/register', data: {
+      'username': loginName,
+      'password': password,
+    });
+    return Menger.fromJson(response.data);
+  }
+
+  static Future<Menger> login(loginName, password) async {
+    var response = await http.post('menger/login', data: {
+      'username': loginName,
+      'password': password,
+    });
+    return Menger.fromJson(response.data);
+  }
+
   static Future<List<Category>> fetchCategories() async {
     var response = await http.post('post/category/list');
     return response.data

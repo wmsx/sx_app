@@ -1,9 +1,15 @@
 import 'package:sx_app/model/category.dart';
 import 'package:sx_app/model/disscuss_group.dart';
+import 'package:sx_app/model/menger.dart';
 import 'package:sx_app/model/message.dart';
 import 'package:sx_app/model/post.dart';
 
 class MockSXRepository {
+  static Future<Menger> register(String loginName, String password) async {
+    Menger menger = Menger.fromJson({});
+    return Future.value(menger);
+  }
+
   static Future<List<Category>> fetchCategories() async {
     List<Category> categories = List();
     categories
@@ -21,8 +27,12 @@ class MockSXRepository {
     messages
       ..add(Msg.fromJson(
           {'type': 0, 'content': "你好", 'isMe': false, 'time': 1598846749000}))
-      ..add(Msg.fromJson(
-          {'type': 0, 'content': '请您是谁?', 'isMe': false, 'time': 1598846749000}))
+      ..add(Msg.fromJson({
+        'type': 0,
+        'content': '请您是谁?',
+        'isMe': false,
+        'time': 1598846749000
+      }))
       ..add(Msg.fromJson({
         'type': 1,
         'content':
@@ -30,8 +40,12 @@ class MockSXRepository {
         'isMe': false,
         'time': 1598846749000
       }))
-      ..add(Msg.fromJson(
-          {'type': 0, 'content': '你好，我是你爸爸', 'isMe': true, 'time': 1598846749000}));
+      ..add(Msg.fromJson({
+        'type': 0,
+        'content': '你好，我是你爸爸',
+        'isMe': true,
+        'time': 1598846749000
+      }));
 
     return Future.value(messages);
   }

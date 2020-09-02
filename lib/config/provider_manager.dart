@@ -8,7 +8,7 @@ List<SingleChildWidget> providers = [
 
 /// 独立的model
 List<SingleChildWidget> independentServices = [
-  ChangeNotifierProvider<UserModel>(
-    create: (context) => UserModel(),
+  ChangeNotifierProvider<MengerModel>(
+    create: (context) => MengerModel(),
   ),
 ];

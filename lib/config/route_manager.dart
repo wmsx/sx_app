@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sx_app/main.dart';
 import 'package:sx_app/ui/page/user/login_page.dart';
+import 'package:sx_app/ui/page/user/register_page.dart';
 
 class RouteName {
   static const String splash = 'splash';
@@ -28,6 +29,8 @@ class Router {
       case RouteName.login:
         return CupertinoPageRoute(
             fullscreenDialog: true, builder: (_) => LoginPage());
+      case RouteName.register:
+        return CupertinoPageRoute(builder: (_) => RegisterPage());
       default:
         return CupertinoPageRoute(
           builder: (context) => MainPage(),

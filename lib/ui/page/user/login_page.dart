@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sx_app/config/route_manager.dart';
 import 'package:sx_app/generated/l10n.dart';
 import 'package:sx_app/provider/provider_widget.dart';
 import 'package:sx_app/ui/widget/button_progress_indicator.dart';
@@ -40,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       LoginLogo(),
-                      Container(
+                      LoginFormContainer(
                         child: ProviderWidget<LoginModel>(
                           model: LoginModel(Provider.of(context)),
                           builer: (context, model, child) {
@@ -90,6 +92,33 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+class LoginFormContainer extends StatelessWidget {
+  final Widget child;
+
+  LoginFormContainer({this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      decoration: ShapeDecoration(
+        shape: RoundedRectangleBorder(),
+        color: Theme.of(context).cardColor,
+        shadows: [
+          BoxShadow(
+            color: Theme.of(context).primaryColor.withAlpha(20),
+            offset: Offset(1.0, 1.0),
+            blurRadius: 10.0,
+            spreadRadius: 3.0,
+          ),
+        ],
+      ),
+      child: this.child,
+    );
+  }
+}
+
 class LoginButton extends StatelessWidget {
   final nameController;
   final passwordController;
@@ -113,7 +142,11 @@ class LoginButton extends StatelessWidget {
           ? null
           : () {
               var formState = Form.of(context);
-              if (formState.validate()) {}
+              if (formState.validate()) {
+                model
+                    .login(nameController.text, passwordController.text)
+                    .then((value) => null);
+              }
             },
     );
   }
@@ -155,6 +188,25 @@ class SignUpWidget extends StatefulWidget {
 }
 
 class _SingUpWidgetState extends State<SignUpWidget> {
+  TapGestureRecognizer _recognizerRegister;
+
+  @override
+  void initState() {
+    _recognizerRegister = TapGestureRecognizer()
+      ..onTap = () async {
+        // 将注册成功的用户名,回填如登录框
+        widget.nameController.text =
+            await Navigator.of(context).pushNamed(RouteName.register);
+      };
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _recognizerRegister.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -162,8 +214,10 @@ class _SingUpWidgetState extends State<SignUpWidget> {
         text: S.of(context).noAccount,
         children: [
           TextSpan(
-              text: S.of(context).toSignUp,
-              style: TextStyle(color: Theme.of(context).accentColor)),
+            text: S.of(context).toSignUp,
+            recognizer: _recognizerRegister,
+            style: TextStyle(color: Theme.of(context).accentColor),
+          ),
         ],
       )),
     );

@@ -143,11 +143,51 @@ class S {
     );
   }
 
+  /// `Sign Up`
+  String get signUp {
+    return Intl.message(
+      'Sign Up',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `No Account ? `
   String get noAccount {
     return Intl.message(
       'No Account ? ',
       name: 'noAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `not empty`
+  String get fieldNotNull {
+    return Intl.message(
+      'not empty',
+      name: 'fieldNotNull',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get rePassword {
+    return Intl.message(
+      'Confirm Password',
+      name: 'rePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The two passwords differ`
+  String get twoPwdDifferent {
+    return Intl.message(
+      'The two passwords differ',
+      name: 'twoPwdDifferent',
       desc: '',
       args: [],
     );

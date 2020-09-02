@@ -23,4 +23,8 @@ class ViewStateError {
 
   ViewStateErrorType get errorType => _errorType;
 
+  /// 以下变量是为了代码书写方便,加入的get方法.严格意义上讲,并不严谨
+  get isDefaultError => _errorType == ViewStateErrorType.defaultError;
+  get isNetworkTimeOut => _errorType == ViewStateErrorType.networkTimeoutError;
+  get isUnauthorized => _errorType == ViewStateErrorType.unauthorizedError;
 }

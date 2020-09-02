@@ -21,10 +21,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "fieldNotNull" : MessageLookupByLibrary.simpleMessage("不能为空"),
     "noAccount" : MessageLookupByLibrary.simpleMessage("还没账号? "),
     "password" : MessageLookupByLibrary.simpleMessage("密码"),
+    "rePassword" : MessageLookupByLibrary.simpleMessage("确认密码"),
     "signIn" : MessageLookupByLibrary.simpleMessage("登录"),
+    "signUp" : MessageLookupByLibrary.simpleMessage("注册"),
     "toSignUp" : MessageLookupByLibrary.simpleMessage("去注册"),
+    "twoPwdDifferent" : MessageLookupByLibrary.simpleMessage("两次密码不一致"),
     "userName" : MessageLookupByLibrary.simpleMessage("用户名"),
     "viewStateButtonLogin" : MessageLookupByLibrary.simpleMessage("登录"),
     "viewStateButtonRefresh" : MessageLookupByLibrary.simpleMessage("刷新一下"),

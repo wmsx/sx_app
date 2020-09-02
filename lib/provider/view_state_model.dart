@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:sx_app/config/net/api.dart';
+import 'package:sx_app/generated/l10n.dart';
 
 import 'view_state.dart';
 
@@ -84,4 +86,18 @@ class ViewStateModel with ChangeNotifier {
   }
 
   void onError(ViewStateError viewStateError) {}
+
+  /// 显示错误消息
+  showErrorMessage(context, {String message}) {
+    if (viewStateError != null || message != null) {
+      if (viewStateError.isNetworkTimeOut) {
+        message ??= S.of(context).viewStateMessageNetworkError;
+      } else {
+        message ??= viewStateError.message;
+      }
+      Future.microtask(() {
+        showToast(message, context: context);
+      });
+    }
+  }
 }

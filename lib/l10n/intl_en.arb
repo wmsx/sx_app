@@ -10,6 +10,10 @@
   "password": "password",
   "signIn": "Sign In",
   "toSignUp": "Sign Up",
-  "noAccount": "No Account ? "
+  "signUp": "Sign Up",
+  "noAccount": "No Account ? ",
+  "fieldNotNull": "not empty",
+  "rePassword": "Confirm Password",
+  "twoPwdDifferent": "The two passwords differ"
 
 }
