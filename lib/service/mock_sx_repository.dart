@@ -3,14 +3,28 @@ import 'package:sx_app/model/disscuss_group.dart';
 import 'package:sx_app/model/menger.dart';
 import 'package:sx_app/model/message.dart';
 import 'package:sx_app/model/post.dart';
+import 'package:sx_app/service/sx_repository.dart';
 
-class MockSXRepository {
-  static Future<Menger> register(String loginName, String password) async {
-    Menger menger = Menger.fromJson({});
+class MockSXRepository extends Repository {
+  Future<Menger> register(String loginName, String password) async {
+    Menger menger = Menger.fromJson({
+      'avatar':
+          'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+      'username': '懒癌正患者',
+    });
     return Future.value(menger);
   }
 
-  static Future<List<Category>> fetchCategories() async {
+  Future<Menger> login(loginName, password) async {
+    Menger menger = Menger.fromJson({
+      'avatar':
+          'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+      'username': '懒癌正患者',
+    });
+    return Future.value(menger);
+  }
+
+  Future<List<Category>> fetchCategories() async {
     List<Category> categories = List();
     categories
       ..add(Category.fromJson({'id': 1, 'name': "编程与开发"}))
@@ -22,7 +36,7 @@ class MockSXRepository {
     return Future.value(categories);
   }
 
-  static Future<List<Msg>> fetchMessages() async {
+  Future<List<Msg>> fetchMessages() async {
     List<Msg> messages = List();
     messages
       ..add(Msg.fromJson(
@@ -50,7 +64,7 @@ class MockSXRepository {
     return Future.value(messages);
   }
 
-  static Future<List<DiscussGroup>> fetchDiscussGroup() async {
+  Future<List<DiscussGroup>> fetchDiscussGroup() async {
     List<DiscussGroup> discussGroups = List();
     discussGroups
       ..add(DiscussGroup.fromJson({
@@ -107,7 +121,7 @@ class MockSXRepository {
     return Future.value(discussGroups);
   }
 
-  static Future<List<Post>> fetchPosts(int categoryId, int lastId) async {
+  Future<List<Post>> fetchPosts(int categoryId, int lastId) async {
     List<Post> posts = List();
     posts
       ..add(Post.fromJson({

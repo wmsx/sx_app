@@ -5,8 +5,16 @@ import 'package:sx_app/model/disscuss_group.dart';
 import 'package:sx_app/model/menger.dart';
 import 'package:sx_app/model/post.dart';
 
-class SXRepository {
-  static Future<Menger> register(String loginName, String password) async {
+abstract class Repository {
+  Future<Menger> register(String loginName, String password);
+  Future<Menger> login(String loginName, String password);
+  Future<List<Category>> fetchCategories();
+  Future<List<DiscussGroup>> fetchDiscussGroup();
+  Future<List<Post>> fetchPosts(int categoryId, int lastId);
+}
+
+class SXRepository extends Repository {
+  Future<Menger> register(String loginName, String password) async {
     var response = await http.post('menger/register', data: {
       'username': loginName,
       'password': password,
@@ -14,7 +22,7 @@ class SXRepository {
     return Menger.fromJson(response.data);
   }
 
-  static Future<Menger> login(loginName, password) async {
+  Future<Menger> login(loginName, password) async {
     var response = await http.post('menger/login', data: {
       'username': loginName,
       'password': password,
@@ -22,21 +30,21 @@ class SXRepository {
     return Menger.fromJson(response.data);
   }
 
-  static Future<List<Category>> fetchCategories() async {
+  Future<List<Category>> fetchCategories() async {
     var response = await http.post('post/category/list');
     return response.data
         .map<Category>((item) => Category.fromJson(item))
         .toList();
   }
 
-  static Future<List<DiscussGroup>> fetchDiscussGroup() async {
+  Future<List<DiscussGroup>> fetchDiscussGroup() async {
     var response = await http.post('discuss/group/list');
     return response.data
         .map<DiscussGroup>((item) => DiscussGroup.fromJson(item))
         .toList();
   }
 
-  static Future<List<Post>> fetchPosts(int categoryId, int lastId) async {
+  Future<List<Post>> fetchPosts(int categoryId, int lastId) async {
     var response = await http.post('post/list',
         data: {"category_id": categoryId, "last_id": lastId});
 

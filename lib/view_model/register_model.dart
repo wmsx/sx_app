@@ -8,9 +8,7 @@ class RegisterModel extends ViewStateModel with MockModel {
   Future<bool> singUp(loginName, password) async {
     setBusy();
     try {
-      await (isMock
-          ? MockSXRepository.register(loginName, password)
-          : SXRepository.register(loginName, password));
+      await repository.register(loginName, password);
       setIdle();
       return true;
     } catch (e, s) {

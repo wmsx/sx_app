@@ -20,7 +20,7 @@ class _ConversationPageState extends State<ConversationPage> {
   Widget build(BuildContext context) {
     DiscussGroup discussGroup = widget.discussGroup;
 
-    MockSXRepository.fetchMessages().then((value) {
+    MockSXRepository().fetchMessages().then((value) {
       messages = value;
       setState(() {});
     });

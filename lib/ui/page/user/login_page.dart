@@ -145,7 +145,13 @@ class LoginButton extends StatelessWidget {
               if (formState.validate()) {
                 model
                     .login(nameController.text, passwordController.text)
-                    .then((value) => null);
+                    .then((value) {
+                  if (value) {
+                    Navigator.of(context).pop(true);
+                  } else {
+                    model.showErrorMessage(context);
+                  }
+                });
               }
             },
     );

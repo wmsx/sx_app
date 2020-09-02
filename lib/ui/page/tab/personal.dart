@@ -102,11 +102,9 @@ class UserHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Consumer<MengerModel>(
-        builder: (context, userModel, _) {
-          bool hasMenger = userModel.hasMenger;
-          Menger menger = userModel.menger;
+        builder: (context, mengerModel, _) {
           return InkWell(
-            onTap: hasMenger
+            onTap: mengerModel.hasMenger
                 ? null
                 : () {
                     Navigator.of(context).pushNamed(RouteName.login);
@@ -118,15 +116,15 @@ class UserHeaderWidget extends StatelessWidget {
                 GradientBorderContainer(
                   size: 80,
                   shape: BoxShape.circle,
-                  image: hasMenger
-                      ? NetworkImage(menger.avatar)
+                  image: mengerModel.hasMenger
+                      ? NetworkImage(mengerModel.menger.avatar)
                       : AssetImage('assets/images/default_avatar.png'),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Text(
-                  hasMenger ? menger.username : '未登录',
+                  mengerModel.hasMenger ? mengerModel.menger.username : '未登录',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,

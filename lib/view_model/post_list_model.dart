@@ -12,9 +12,7 @@ class PostListModel extends ViewStateLastIdRefreshListModel<Post>
 
   @override
   Future<List<Post>> loadData({int lastId = 0}) {
-    return isMock
-        ? MockSXRepository.fetchPosts(categoryId, lastId)
-        : SXRepository.fetchPosts(categoryId, lastId);
+    return repository.fetchPosts(categoryId, lastId);
   }
 
   @override
