@@ -43,6 +43,7 @@ class _CommunityPageState extends State<CommunityPage>
                 hintText: 'Search',
               ),
             ),
+            elevation: 0.0,
             actions: <Widget>[
               IconButton(
                 icon: Icon(

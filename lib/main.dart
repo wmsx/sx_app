@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
   runApp(MyApp());
+  // Android状态栏透明 splash为白色,所以调整状态栏文字为黑色
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.light),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -35,7 +42,7 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: S.delegate.supportedLocales,
           theme: ThemeData(
-            primaryColor: Colors.pinkAccent[100],
+            primaryColor: Colors.white,
             scaffoldBackgroundColor: scaffolColor,
             brightness: Brightness.light,
             visualDensity: VisualDensity.adaptivePlatformDensity,

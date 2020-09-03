@@ -56,6 +56,7 @@ class _PersonalPageState extends State<PersonalPage>
             ),
           ),
         ],
+        elevation: 0.0,
       ),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {

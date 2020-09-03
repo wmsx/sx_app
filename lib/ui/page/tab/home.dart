@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:sx_app/model/category.dart';
 import 'package:sx_app/provider/provider_widget.dart';
@@ -44,7 +46,19 @@ class _HomePageState extends State<HomePage>
           child: Scaffold(
             backgroundColor: Color(0xFFEDF0F2),
             appBar: AppBar(
-              title: TabBar(
+              elevation: 0,
+              toolbarHeight: 80.0,
+              leading: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Icon(Icons.menu),
+              ),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Icon(Icons.share),
+                ),
+              ],
+              bottom: TabBar(
                 isScrollable: true,
                 tabs: List.generate(
                   categories.length,
@@ -52,6 +66,16 @@ class _HomePageState extends State<HomePage>
                     text: categories[index].name,
                   ),
                 ),
+                indicator: const BoxDecoration(),
+                labelStyle: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelColor: Colors.grey[400],
               ),
             ),
             body: TabBarView(
