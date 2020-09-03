@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sx_app/config/route_manager.dart';
+import 'package:sx_app/ui/page/user/dashboard_post_list_widget.dart';
+import 'package:sx_app/ui/page/user/favorite_post_list_widget.dart';
+import 'package:sx_app/ui/page/user/thumbup_post_list_widget.dart';
 import 'package:sx_app/ui/widget/gradient_border_cotainer.dart';
 import 'package:sx_app/view_model/user_model.dart';
 
@@ -15,70 +18,28 @@ class PersonalPage extends StatefulWidget {
 
 class _PersonalPageState extends State<PersonalPage>
     with SingleTickerProviderStateMixin {
-  List<Widget> tabs = [
-    Tab(
-        icon: Icon(
-      Icons.favorite,
-      size: 30,
-    )),
-    Tab(
-        icon: Icon(
-      Icons.dashboard,
-      size: 30,
-    )),
-    Tab(
-        icon: Icon(
-      Icons.bookmark,
-      size: 30,
-    )),
+  List<IconData> icons = [
+    Icons.dashboard,
+    Icons.bookmark,
+    Icons.favorite,
   ];
+
+  List<Widget> tabs;
 
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
-  }
-
-  Widget _buildStory() {
-    return Container(
-      height: 80,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return SizedBox(width: 10);
-          }
-          return Container(
-            margin: EdgeInsets.all(10),
-            width: 50,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black45,
-                  offset: Offset(0, 2),
-                  blurRadius: 6,
-                ),
-              ],
-            ),
-            child: CircleAvatar(
-              child: ClipOval(
-                child: Image(
-                  height: 50,
-                  width: 50,
-                  image: NetworkImage(
-                      'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+    tabs = List.generate(
+      icons.length,
+      (index) => Tab(
+          icon: Icon(
+        icons[index],
+        size: 30,
+      )),
     );
+    _tabController = TabController(length: tabs.length, vsync: this);
   }
 
   @override
@@ -125,15 +86,9 @@ class _PersonalPageState extends State<PersonalPage>
         body: TabBarView(
           controller: this._tabController,
           children: [
-            Center(
-              child: Text('1'),
-            ),
-            Center(
-              child: Text('2'),
-            ),
-            Center(
-              child: Text('3'),
-            ),
+            DashboardPostListWidget(),
+            FavoritePostListWidget(),
+            ThumbUpPostListWidget(),
           ],
         ),
       ),

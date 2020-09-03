@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sx_app/model/category.dart';
 import 'package:sx_app/provider/provider_widget.dart';
 import 'package:sx_app/provider/view_state_widget.dart';
-import 'package:sx_app/ui/page/post/post_list_page.dart';
+import 'package:sx_app/ui/page/post/category_post_list_page.dart';
 import 'package:sx_app/view_model/category_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage>
             body: TabBarView(
               children: List.generate(
                 categories.length,
-                (index) => PostListPage(categories[index].id),
+                (index) => CategoryPostListPage(categories[index].id),
               ),
             ),
           ),
