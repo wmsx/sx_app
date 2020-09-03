@@ -137,119 +137,134 @@ List<Post> posts = List()
     ]
   }));
 
+Menger menger = Menger.fromJson({
+  'avatar':
+      'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+  'username': '懒癌正患者',
+});
+
+List<DiscussGroup> discussGroups = List()
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': '如何实现延时队列',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }))
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': 'RocketMQ如何存储消息',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }))
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': 'flutter布局详解',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }))
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': 'Golang GMP调度',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }))
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': 'IM系统如何存储数据',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }))
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': 'IM系统如何存储数据',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }))
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': 'IM系统如何存储数据',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }))
+  ..add(DiscussGroup.fromJson({
+    'id': 1,
+    'postId': 1,
+    'cover':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'title': 'IM系统如何存储数据',
+    'lastestMsg': '怎么说?',
+    'time': 1598846749000,
+    'unread': 10,
+  }));
+
+List<Category> categories = List()
+  ..add(Category.fromJson({'id': 1, 'name': "编程与开发"}))
+  ..add(Category.fromJson({'id': 2, 'name': "英语"}))
+  ..add(Category.fromJson({'id': 3, 'name': "日语"}))
+  ..add(Category.fromJson({'id': 4, 'name': "音乐"}))
+  ..add(Category.fromJson({'id': 5, 'name': "绘画"}));
+
+List<Msg> messages = List()
+  ..add(Msg.fromJson(
+      {'type': 0, 'content': "你好", 'isMe': false, 'time': 1598846749000}))
+  ..add(Msg.fromJson(
+      {'type': 0, 'content': '请您是谁?', 'isMe': false, 'time': 1598846749000}))
+  ..add(Msg.fromJson({
+    'type': 1,
+    'content':
+        'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
+    'isMe': false,
+    'time': 1598846749000
+  }))
+  ..add(Msg.fromJson(
+      {'type': 0, 'content': '你好，我是你爸爸', 'isMe': true, 'time': 1598846749000}));
+
 class MockSXRepository extends Repository {
   Future<Menger> register(String loginName, String password) async {
-    Menger menger = Menger.fromJson({
-      'avatar':
-          'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-      'username': '懒癌正患者',
-    });
     return Future.value(menger);
   }
 
   Future<Menger> login(loginName, password) async {
-    Menger menger = Menger.fromJson({
-      'avatar':
-          'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-      'username': '懒癌正患者',
-    });
     return Future.value(menger);
   }
 
   Future<List<Category>> fetchCategories() async {
-    List<Category> categories = List();
-    categories
-      ..add(Category.fromJson({'id': 1, 'name': "编程与开发"}))
-      ..add(Category.fromJson({'id': 2, 'name': "英语"}))
-      ..add(Category.fromJson({'id': 3, 'name': "日语"}))
-      ..add(Category.fromJson({'id': 4, 'name': "音乐"}))
-      ..add(Category.fromJson({'id': 5, 'name': "绘画"}));
-
     return Future.value(categories);
   }
 
   Future<List<Msg>> fetchMessages() async {
-    List<Msg> messages = List();
-    messages
-      ..add(Msg.fromJson(
-          {'type': 0, 'content': "你好", 'isMe': false, 'time': 1598846749000}))
-      ..add(Msg.fromJson({
-        'type': 0,
-        'content': '请您是谁?',
-        'isMe': false,
-        'time': 1598846749000
-      }))
-      ..add(Msg.fromJson({
-        'type': 1,
-        'content':
-            'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-        'isMe': false,
-        'time': 1598846749000
-      }))
-      ..add(Msg.fromJson({
-        'type': 0,
-        'content': '你好，我是你爸爸',
-        'isMe': true,
-        'time': 1598846749000
-      }));
-
     return Future.value(messages);
   }
 
   Future<List<DiscussGroup>> fetchDiscussGroup() async {
-    List<DiscussGroup> discussGroups = List();
-    discussGroups
-      ..add(DiscussGroup.fromJson({
-        'id': 1,
-        'postId': 1,
-        'cover':
-            'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-        'title': '如何实现延时队列',
-        'lastestMsg': '怎么说?',
-        'time': 1598846749000,
-        'unread': 10,
-      }))
-      ..add(DiscussGroup.fromJson({
-        'id': 1,
-        'postId': 1,
-        'cover':
-            'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-        'title': 'RocketMQ如何存储消息',
-        'lastestMsg': '怎么说?',
-        'time': 1598846749000,
-        'unread': 10,
-      }))
-      ..add(DiscussGroup.fromJson({
-        'id': 1,
-        'postId': 1,
-        'cover':
-            'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-        'title': 'flutter布局详解',
-        'lastestMsg': '怎么说?',
-        'time': 1598846749000,
-        'unread': 10,
-      }))
-      ..add(DiscussGroup.fromJson({
-        'id': 1,
-        'postId': 1,
-        'cover':
-            'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-        'title': 'Golang GMP调度',
-        'lastestMsg': '怎么说?',
-        'time': 1598846749000,
-        'unread': 10,
-      }))
-      ..add(DiscussGroup.fromJson({
-        'id': 1,
-        'postId': 1,
-        'cover':
-            'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg',
-        'title': 'IM系统如何存储数据',
-        'lastestMsg': '怎么说?',
-        'time': 1598846749000,
-        'unread': 10,
-      }));
-
     return Future.value(discussGroups);
   }
 
@@ -270,5 +285,15 @@ class MockSXRepository extends Repository {
   @override
   Future<List<Post>> fetchDashboardPost(int pageNum) {
     return Future.value(List<Post>());
+  }
+
+  @override
+  Future<List<DiscussGroup>> fetchDiscussGroups() {
+    return Future.value(discussGroups);
+  }
+
+  @override
+  Future<List<DiscussGroup>> fetchLastest10DiscussGroups() {
+    return Future.value(discussGroups);
   }
 }

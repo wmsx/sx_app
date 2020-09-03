@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sx_app/config/route_manager.dart';
+import 'package:sx_app/model/disscuss_group.dart';
+import 'package:sx_app/provider/provider_widget.dart';
+import 'package:sx_app/service/sx_repository.dart';
 import 'package:sx_app/ui/page/user/dashboard_post_list_widget.dart';
 import 'package:sx_app/ui/page/user/favorite_post_list_widget.dart';
 import 'package:sx_app/ui/page/user/thumbup_post_list_widget.dart';
 import 'package:sx_app/ui/widget/gradient_border_cotainer.dart';
+import 'package:sx_app/view_model/post_discuss_group_model.dart';
 import 'package:sx_app/view_model/user_model.dart';
 
 const double toolbarHeight = 50.0;
@@ -157,39 +161,73 @@ class UserHeaderWidget extends StatelessWidget {
               ],
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '讨论',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  '查看全部>>',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Container(
-            height: 80,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                  return SizedBox(width: 10);
+            height: 60.0,
+            child: ProviderWidget<PostDiscussGroupModel>(
+              model: PostDiscussGroupModel(),
+              onModelReady: (model) {
+                model.fetchLastest10DiscussGroups();
+              },
+              builer: (context, model, child) {
+                if (model.isBusy) {
+                  return Container();
                 }
-                return Container(
-                  margin: EdgeInsets.all(10),
-                  width: 50,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black45,
-                        offset: Offset(0, 2),
-                        blurRadius: 6,
+                if (model.isError) {
+                  return Container();
+                }
+                List<DiscussGroup> discussGroups = model.lastest10DiscussGroups;
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: discussGroups.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    DiscussGroup discussGroup = discussGroups[index];
+                    return Container(
+                      margin: EdgeInsets.all(10),
+                      width: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black45,
+                            offset: Offset(0, 2),
+                            blurRadius: 6,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: CircleAvatar(
-                    child: ClipOval(
-                      child: Image(
-                        height: 50,
-                        width: 50,
-                        image: NetworkImage(
-                            'https://i1.hdslb.com/bfs/face/046edcb046a97ab421dce0ed8cb36be447ae1f28.jpg'),
-                        fit: BoxFit.cover,
+                      child: CircleAvatar(
+                        child: ClipOval(
+                          child: Image(
+                            height: 50,
+                            width: 50,
+                            image: NetworkImage(discussGroup.cover),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 );
               },
             ),

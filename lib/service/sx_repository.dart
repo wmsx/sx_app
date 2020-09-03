@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sx_app/config/net/sx_api.dart';
 import 'package:sx_app/model/category.dart';
 import 'package:sx_app/model/disscuss_group.dart';
@@ -14,6 +13,8 @@ abstract class Repository {
   Future<List<Post>> fetchThumbUpPost(int pageNum);
   Future<List<Post>> fetchFavoritePost(int pageNum);
   Future<List<Post>> fetchDashboardPost(int pageNum);
+  Future<List<DiscussGroup>> fetchLastest10DiscussGroups();
+  Future<List<DiscussGroup>> fetchDiscussGroups();
 }
 
 class SXRepository extends Repository {
@@ -69,6 +70,20 @@ class SXRepository extends Repository {
   @override
   Future<List<Post>> fetchDashboardPost(int pn) async {
     var response = await http.post('post/favorite/list', data: {"pn": pn});
+    return response.data.map<Post>((item) => Post.fromJson(item)).toList();
+  }
+
+  @override
+  Future<List<DiscussGroup>> fetchDiscussGroups() async {
+    var response = await http.post('group/list');
+    return response.data
+        .map<DiscussGroup>((item) => DiscussGroup.fromJson(item))
+        .toList();
+  }
+
+  @override
+  Future<List<DiscussGroup>> fetchLastest10DiscussGroups() async {
+    var response = await http.post('group/latest');
     return response.data.map<Post>((item) => Post.fromJson(item)).toList();
   }
 }
