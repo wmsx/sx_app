@@ -1,6 +1,5 @@
 import 'package:sx_app/config/storage_manager.dart';
 import 'package:sx_app/provider/view_state_model.dart';
-import 'package:sx_app/service/sx_repository.dart';
 import 'package:sx_app/view_model/mock_model.dart';
 import 'package:sx_app/view_model/user_model.dart';
 

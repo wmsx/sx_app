@@ -17,7 +17,7 @@ class Post {
     post.id = map['id'];
     post.type = map['type'];
     post.title = map['title'];
-    // post.onlookerCount = map['onlookerCount'];
+    post.onlookerCount = map['onlookerCount'];
     post.onlookerCount = 0;
     post.menger = Menger.fromJson(map['menger']);
     post.items = List()

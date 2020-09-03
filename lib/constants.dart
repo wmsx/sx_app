@@ -12,3 +12,4 @@ const MSG_AUTH_TOKEN = 15;
 const MSG_AUTH_STATUS = 3;
 
 const Color scaffolColor = Color(0xFFFEFEFE);
+const Color c = Color(0xFFA8A4EF);
