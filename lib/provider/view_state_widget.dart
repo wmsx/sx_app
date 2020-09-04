@@ -160,7 +160,12 @@ class ViewStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        SizedBox(
+          height: 20.0,
+        ),
         image ??
             Icon(
               IconFonts.pageError,
@@ -174,18 +179,7 @@ class ViewStateWidget extends StatelessWidget {
               Text(
                 title ?? S.of(context).viewStateMessageError,
               ),
-              SizedBox(
-                height: 20,
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: 200,
-                  minHeight: 150,
-                ),
-                child: SingleChildScrollView(
-                  child: Text(message ?? ''),
-                ),
-              ),
+              Text(message ?? ''),
             ],
           ),
         ),

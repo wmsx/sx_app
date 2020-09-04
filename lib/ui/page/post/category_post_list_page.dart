@@ -26,7 +26,7 @@ class _CategoryPostListPageState extends State<CategoryPostListPage> {
       onModelReady: (model) {
         model.initData();
       },
-      builer: (context, model, child) {
+      builder: (context, model, child) {
         if (model.isBusy) {
           return ViewStateBusyWidget();
         }

@@ -6,6 +6,6 @@ class DiscussGroupListModel extends ViewStateListModel<DiscussGroup>
     with MockModel {
   @override
   Future<List<DiscussGroup>> loadData() {
-    return repository.fetchDiscussGroup();
+    return repository.fetchDiscussGroups();
   }
 }

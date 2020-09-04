@@ -56,7 +56,7 @@ class _DiscussGroupItemState extends State<DiscussGroupItem> {
           ],
         ),
         title: Text(
-          "${discussGroup.title}",
+          "${discussGroup.name}",
           maxLines: 1,
           style: TextStyle(
             fontWeight: FontWeight.bold,

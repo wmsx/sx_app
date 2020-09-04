@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sx_app/constants.dart';
 import 'package:sx_app/generated/l10n.dart';
 import 'package:sx_app/provider/provider_widget.dart';
 import 'package:sx_app/ui/page/user/login_widget.dart';
@@ -47,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       LoginLogo(),
                       ProviderWidget<RegisterModel>(
                         model: RegisterModel(),
-                        builer: (context, model, child) => Form(
+                        builder: (context, model, child) => Form(
                           onWillPop: () async {
                             return !model.isBusy;
                           },
@@ -119,10 +120,9 @@ class RegisterButton extends StatelessWidget {
           ? ButtonProgressIndicator()
           : Text(
               S.of(context).signUp,
-              style: Theme.of(context)
-                  .accentTextTheme
-                  .title
-                  .copyWith(wordSpacing: 6),
+              style: TextStyle(
+                color: c2,
+              ),
             ),
       onPressed: model.isBusy
           ? null

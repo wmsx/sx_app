@@ -8,13 +8,12 @@ abstract class Repository {
   Future<Menger> register(String loginName, String password);
   Future<Menger> login(String loginName, String password);
   Future<List<Category>> fetchCategories();
-  Future<List<DiscussGroup>> fetchDiscussGroup();
   Future<List<Post>> fetchPosts(int categoryId, int lastId);
   Future<List<Post>> fetchThumbUpPost(int pageNum);
   Future<List<Post>> fetchFavoritePost(int pageNum);
   Future<List<Post>> fetchDashboardPost(int pageNum);
-  Future<List<DiscussGroup>> fetchLastest10DiscussGroups();
   Future<List<DiscussGroup>> fetchDiscussGroups();
+  Future logout();
 }
 
 class SXRepository extends Repository {
@@ -75,15 +74,14 @@ class SXRepository extends Repository {
 
   @override
   Future<List<DiscussGroup>> fetchDiscussGroups() async {
-    var response = await http.post('group/list');
+    var response = await http.post('group/discuss/list');
     return response.data
         .map<DiscussGroup>((item) => DiscussGroup.fromJson(item))
         .toList();
   }
 
   @override
-  Future<List<DiscussGroup>> fetchLastest10DiscussGroups() async {
-    var response = await http.post('group/latest');
-    return response.data.map<Post>((item) => Post.fromJson(item)).toList();
+  Future logout() async {
+    await http.post('menger/logout');
   }
 }

@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:sx_app/config/route_manager.dart';
 import 'package:sx_app/model/disscuss_group.dart';
 import 'package:sx_app/provider/provider_widget.dart';
-import 'package:sx_app/service/sx_repository.dart';
 import 'package:sx_app/ui/page/user/dashboard_post_list_widget.dart';
 import 'package:sx_app/ui/page/user/favorite_post_list_widget.dart';
 import 'package:sx_app/ui/page/user/thumbup_post_list_widget.dart';
 import 'package:sx_app/ui/widget/gradient_border_cotainer.dart';
-import 'package:sx_app/view_model/post_discuss_group_model.dart';
+import 'package:sx_app/view_model/discuss_group_list_model.dart';
+import 'package:sx_app/view_model/login_model.dart';
 import 'package:sx_app/view_model/user_model.dart';
 
 const double toolbarHeight = 50.0;
@@ -53,11 +53,43 @@ class _PersonalPageState extends State<PersonalPage>
         title: Text('个人主页'),
         centerTitle: true,
         actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Icon(
-              Icons.settings,
+          ProviderWidget<LoginModel>(
+            model: LoginModel(
+              Provider.of(context),
             ),
+            builder: (context, loginModel, child) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                  ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min, // 设置最小的弹出
+                          children: <Widget>[
+                            new ListTile(
+                              leading: new Icon(Icons.exit_to_app),
+                              title: new Text("退出账号"),
+                              onTap: () async {
+                                bool success = await loginModel.logout();
+                                if (!success) {
+                                  loginModel.showErrorMessage(context);
+                                }
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ],
         elevation: 0.0,
@@ -66,6 +98,7 @@ class _PersonalPageState extends State<PersonalPage>
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              automaticallyImplyLeading: false,
               toolbarHeight: toolbarHeight,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               expandedHeight: MediaQuery.of(context).size.height / 2.5,
@@ -136,7 +169,7 @@ class UserHeaderWidget extends StatelessWidget {
                         ),
                         Text(
                           mengerModel.hasMenger
-                              ? mengerModel.menger.username
+                              ? mengerModel.menger.name
                               : '未登录',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -173,11 +206,16 @@ class UserHeaderWidget extends StatelessWidget {
                     fontSize: 12,
                   ),
                 ),
-                Text(
-                  '查看全部>>',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RouteName.discussGroupList);
+                  },
+                  child: Text(
+                    '查看全部>>',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ],
@@ -185,19 +223,22 @@ class UserHeaderWidget extends StatelessWidget {
           ),
           Container(
             height: 60.0,
-            child: ProviderWidget<PostDiscussGroupModel>(
-              model: PostDiscussGroupModel(),
+            child: ProviderWidget<DiscussGroupListModel>(
+              model: DiscussGroupListModel(),
               onModelReady: (model) {
-                model.fetchLastest10DiscussGroups();
+                model.initData();
               },
-              builer: (context, model, child) {
+              builder: (context, model, child) {
                 if (model.isBusy) {
                   return Container();
                 }
                 if (model.isError) {
+                  if (model.viewStateError.isUnauthorized) {
+                    return Text('去登录吧');
+                  }
                   return Container();
                 }
-                List<DiscussGroup> discussGroups = model.lastest10DiscussGroups;
+                List<DiscussGroup> discussGroups = model.list;
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: discussGroups.length,
@@ -219,10 +260,10 @@ class UserHeaderWidget extends StatelessWidget {
                       child: CircleAvatar(
                         child: ClipOval(
                           child: Image(
-                            height: 50,
-                            width: 50,
+                            height: 40,
+                            width: 40,
                             image: NetworkImage(discussGroup.cover),
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                           ),
                         ),
                       ),

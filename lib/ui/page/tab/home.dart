@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage>
       onModelReady: (model) {
         model.initData();
       },
-      builer: (context, model, child) {
+      builder: (context, model, child) {
         if (model.isBusy) {
           return ViewStateBusyWidget();
         }
@@ -53,7 +53,8 @@ class _HomePageState extends State<HomePage>
                 child: Icon(Icons.menu),
               ),
               actions: [
-                Padding(
+                Container(
+                  margin: EdgeInsets.only(right: 10.0),
                   padding: EdgeInsets.symmetric(horizontal: 5.0),
                   child: Icon(Icons.share),
                 ),

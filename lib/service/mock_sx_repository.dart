@@ -264,10 +264,6 @@ class MockSXRepository extends Repository {
     return Future.value(messages);
   }
 
-  Future<List<DiscussGroup>> fetchDiscussGroup() async {
-    return Future.value(discussGroups);
-  }
-
   Future<List<Post>> fetchPosts(int categoryId, int lastId) async {
     return Future.value(posts);
   }
@@ -293,7 +289,5 @@ class MockSXRepository extends Repository {
   }
 
   @override
-  Future<List<DiscussGroup>> fetchLastest10DiscussGroups() {
-    return Future.value(discussGroups);
-  }
+  Future logout() async {}
 }

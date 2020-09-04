@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
-  final ValueWidgetBuilder<T> builer;
+  final ValueWidgetBuilder<T> builder;
   final T model;
   final Widget child;
   final Function(T model) onModelReady;
 
   const ProviderWidget({
     Key key,
-    this.builer,
+    this.builder,
     this.model,
     this.onModelReady,
     this.child,
@@ -37,7 +37,7 @@ class _ProviderWidgetState<T extends ChangeNotifier>
     return ChangeNotifierProvider<T>.value(
       value: model,
       child: Consumer(
-        builder: widget.builer,
+        builder: widget.builder,
         child: widget.child,
       ),
     );

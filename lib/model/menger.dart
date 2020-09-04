@@ -1,14 +1,12 @@
 class Menger {
   int id;
-  String username;
-  String email;
+  String name;
   String avatar;
   String chatToken;
 
   Menger.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    username = json['username'];
-    email = json['email'];
+    name = json['name'];
     avatar = json['avatar'];
     chatToken = json['chatToken'];
   }
@@ -16,8 +14,7 @@ class Menger {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = Map<String, dynamic>();
     json['id'] = id;
-    json['username'] = username;
-    json['email'] = email;
+    json['name'] = name;
     json['avatar'] = avatar;
     json['chatToken'] = chatToken;
     return json;

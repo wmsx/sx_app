@@ -10,7 +10,6 @@ class Http extends BaseHttp {
   void init() {
     var cookieJar = CookieJar();
     options.baseUrl = 'http://api.wemeng.com/';
-    // options.baseUrl = 'http://192.168.0.199:8080/';
     interceptors..add(ApiInterceptor())..add(CookieManager(cookieJar));
   }
 }
@@ -23,12 +22,17 @@ class ApiInterceptor extends InterceptorsWrapper {
       response.data = responseData.data;
       return http.resolve(response);
     } else {
-      if (responseData.code == -1001) {
+      if (responseData.code == 1001) {
         throw const UnAuthorizedException();
       } else {
         throw NotSuccessException.fromResponseData(responseData);
       }
     }
+  }
+
+  @override
+  Future onRequest(RequestOptions options) {
+    return super.onRequest(options);
   }
 }
 

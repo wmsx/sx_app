@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sx_app/config/route_manager.dart';
+import 'package:sx_app/constants.dart';
 import 'package:sx_app/generated/l10n.dart';
 import 'package:sx_app/provider/provider_widget.dart';
 import 'package:sx_app/ui/widget/button_progress_indicator.dart';
@@ -35,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                LoginTopPanel(),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Column(
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                       LoginFormContainer(
                         child: ProviderWidget<LoginModel>(
                           model: LoginModel(Provider.of(context)),
-                          builer: (context, model, child) {
+                          builder: (context, model, child) {
                             return Form(
                               onWillPop: () async {
                                 return !model.isBusy;
@@ -103,8 +103,10 @@ class LoginFormContainer extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(),
-        color: Theme.of(context).cardColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        gradient: cardGradient,
         shadows: [
           BoxShadow(
             color: Theme.of(context).primaryColor.withAlpha(20),
@@ -133,10 +135,10 @@ class LoginButton extends StatelessWidget {
           ? ButtonProgressIndicator()
           : Text(
               S.of(context).signIn,
-              style: Theme.of(context)
-                  .accentTextTheme
-                  .title
-                  .copyWith(wordSpacing: 0),
+              style: TextStyle(
+                color: c2,
+                fontSize: 20.0,
+              ),
             ),
       onPressed: model.isBusy
           ? null
@@ -222,7 +224,9 @@ class _SingUpWidgetState extends State<SignUpWidget> {
           TextSpan(
             text: S.of(context).toSignUp,
             recognizer: _recognizerRegister,
-            style: TextStyle(color: Theme.of(context).accentColor),
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
         ],
       )),

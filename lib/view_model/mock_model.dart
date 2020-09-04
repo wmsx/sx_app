@@ -5,7 +5,7 @@ class MockModel {
   static Repository _mock = MockSXRepository();
   static Repository _actual = SXRepository();
 
-  bool isMock = true;
+  bool isMock = false;
 
   Repository get repository => isMock ? _mock : _actual;
 }

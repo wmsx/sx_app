@@ -30,7 +30,7 @@ class _ConversationPageState extends State<ConversationPage> {
         elevation: 3,
         titleSpacing: 0,
         title: InkWell(
-          child: Text('${discussGroup.title}'),
+          child: Text('${discussGroup.name}'),
         ),
         centerTitle: true,
       ),

@@ -23,13 +23,17 @@ class _FavoritePostListWidgetState extends State<FavoritePostListWidget> {
       onModelReady: (model) {
         model.initData();
       },
-      builer: (context, model, child) {
+      builder: (context, model, child) {
         if (model.isBusy) {
           return ViewStateBusyWidget();
         }
         if (model.isError) {
-          return ViewStateErrorWidget(
-              error: model.viewStateError, onPressed: model.initData);
+          return SingleChildScrollView(
+            child: ViewStateErrorWidget(
+              error: model.viewStateError,
+              onPressed: model.initData,
+            ),
+          );
         }
         if (model.isEmpty) {
           return EmptyFavoriteWidget();
