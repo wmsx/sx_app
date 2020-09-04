@@ -7,7 +7,7 @@ final Http http = Http();
 
 class Http extends BaseHttp {
   @override
-  void init() {
+  void init() async {
     var cookieJar = CookieJar();
     options.baseUrl = 'http://api.wemeng.com/';
     interceptors..add(ApiInterceptor())..add(CookieManager(cookieJar));

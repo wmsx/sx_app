@@ -10,31 +10,40 @@ import 'package:sx_app/utils/common_util.dart';
 class SocketModel with ChangeNotifier {
   Socket socket;
 
-  init() async {
-    socket = await Socket.connect('192.168.0.107', 23000);
+  bool _connected = false;
 
-    String deviceId = await CommonUtil.getDeviceId();
-    int platformId = CommonUtil.getPlatformId();
-    AuthenticationToken authenticationToken = AuthenticationToken(
-      token: 'ViaBB4hkGXG1z5Q16qWB7sPr',
-      platformId: platformId,
-      deviceId: deviceId,
-    );
+  bool get connected => _connected;
 
-    socket.listen((Uint8List bytes) {
-      Message message = Protocol.receiveMessage(ByteData.sublistView(bytes));
-      if (message.cmd == MSG_AUTH_STATUS) {
-        debugPrint('${message.body.status}');
-      }
-    });
+  connect() async {
+    if (!_connected) {
+      socket = await Socket.connect('192.168.0.199', 23000);
 
-    Message message = Message(
-      cmd: MSG_AUTH_TOKEN,
-      version: DEFAULT_VERSION,
-      body: authenticationToken,
-    );
-    _sendMessage(message);
+      String deviceId = await CommonUtil.getDeviceId();
+      int platformId = CommonUtil.getPlatformId();
+      AuthenticationToken authenticationToken = AuthenticationToken(
+        token: 'ViaBB4hkGXG1z5Q16qWB7sPr',
+        platformId: platformId,
+        deviceId: deviceId,
+      );
+
+      socket.listen((Uint8List bytes) {
+        Message message = Protocol.receiveMessage(ByteData.sublistView(bytes));
+        if (message.cmd == MSG_AUTH_STATUS) {
+          debugPrint('${message.body.status}');
+        }
+        _connected = true;
+      });
+
+      Message message = Message(
+        cmd: MSG_AUTH_TOKEN,
+        version: DEFAULT_VERSION,
+        body: authenticationToken,
+      );
+      _sendMessage(message);
+    }
   }
+
+  syncMessage() {}
 
   void _sendMessage(Message message) {
     ByteData bytes = Protocol.writeMessage(message);
