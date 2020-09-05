@@ -14,9 +14,32 @@ class SocketModel with ChangeNotifier {
 
   bool get connected => _connected;
 
+  void _dataHandler(Uint8List bytes) {
+    Message message = Protocol.receiveMessage(ByteData.sublistView(bytes));
+    if (message.cmd == MSG_AUTH_STATUS) {
+      debugPrint('${message.body.status}');
+    }
+    _connected = true;
+  }
+
+  void _doneHandler() {
+    debugPrint('socket closed...');
+    socket.destroy();
+  }
+
+  void _errorHandler(error, StackTrace trace) {
+    print(error);
+  }
+
   connect() async {
     if (!_connected) {
       socket = await Socket.connect('192.168.0.199', 23000);
+
+      socket.listen(
+        _dataHandler,
+        onDone: _doneHandler,
+        onError: _errorHandler,
+      );
 
       String deviceId = await CommonUtil.getDeviceId();
       int platformId = CommonUtil.getPlatformId();
@@ -25,14 +48,6 @@ class SocketModel with ChangeNotifier {
         platformId: platformId,
         deviceId: deviceId,
       );
-
-      socket.listen((Uint8List bytes) {
-        Message message = Protocol.receiveMessage(ByteData.sublistView(bytes));
-        if (message.cmd == MSG_AUTH_STATUS) {
-          debugPrint('${message.body.status}');
-        }
-        _connected = true;
-      });
 
       Message message = Message(
         cmd: MSG_AUTH_TOKEN,
