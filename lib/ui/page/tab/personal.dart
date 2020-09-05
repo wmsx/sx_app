@@ -9,7 +9,7 @@ import 'package:sx_app/ui/page/user/thumbup_post_list_widget.dart';
 import 'package:sx_app/ui/widget/gradient_border_cotainer.dart';
 import 'package:sx_app/view_model/discuss_group_list_model.dart';
 import 'package:sx_app/view_model/login_model.dart';
-import 'package:sx_app/view_model/user_model.dart';
+import 'package:sx_app/view_model/menger_model.dart';
 
 const double toolbarHeight = 50.0;
 
@@ -223,22 +223,12 @@ class UserHeaderWidget extends StatelessWidget {
           ),
           Container(
             height: 60.0,
-            child: ProviderWidget<DiscussGroupListModel>(
-              model: DiscussGroupListModel(),
-              onModelReady: (model) {
-                model.initData();
-              },
+            child: Consumer<DiscussGroupListModel>(
               builder: (context, model, child) {
-                if (model.isBusy) {
-                  return Container();
-                }
-                if (model.isError) {
-                  if (model.viewStateError.isUnauthorized) {
-                    return Text('去登录吧');
-                  }
-                  return Container();
-                }
                 List<DiscussGroup> discussGroups = model.list;
+                if (discussGroups.isEmpty) {
+                  return Container();
+                }
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: discussGroups.length,

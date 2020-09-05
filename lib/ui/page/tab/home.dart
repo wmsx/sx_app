@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage>
                 tabs: List.generate(
                   categories.length,
                   (index) => Tab(
-                    text: categories[index].name,
+                    text: categories[index].showName,
                   ),
                 ),
                 indicator: const BoxDecoration(),

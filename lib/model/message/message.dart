@@ -124,3 +124,79 @@ class AuthenticationStatus implements IMessage {
         bytes.buffer, bytes.offsetInBytes, bytes.lengthInBytes);
   }
 }
+
+class GroupSyncKey implements IMessage {
+  int groupId;
+  int syncKey;
+
+  @override
+  bool fromData(Uint8List bytes) {
+    if (bytes.lengthInBytes < 16) {
+      return false;
+    }
+    ReadBuffer readBuffer = ReadBuffer(ByteData.sublistView(bytes));
+    groupId = readBuffer.getInt64(endian: Endian.big);
+    syncKey = readBuffer.getInt64(endian: Endian.big);
+    return true;
+  }
+
+  @override
+  Uint8List toData() {
+    WriteBuffer writeBuffer = WriteBuffer();
+    writeBuffer.putInt64(groupId, endian: Endian.big);
+    writeBuffer.putInt64(syncKey, endian: Endian.big);
+    ByteData bytes = writeBuffer.done();
+    return Uint8List.view(
+        bytes.buffer, bytes.offsetInBytes, bytes.lengthInBytes);
+  }
+}
+
+class IMMessage implements IVersionMessage {
+  int sender;
+  int receiver;
+  int timestamp;
+  int msgId;
+  String content;
+
+  @override
+  bool fromData(int version, Uint8List bytes) {
+    if (version == 0) {
+      return fromDataV0(bytes);
+    }
+    return false;
+  }
+
+  @override
+  Uint8List toData(int version) {
+    if (version == 0) {
+      return toDataV0();
+    }
+    return null;
+  }
+
+  Uint8List toDataV0() {
+    WriteBuffer writeBuffer = WriteBuffer();
+    writeBuffer.putInt64(sender, endian: Endian.big);
+    writeBuffer.putInt64(receiver, endian: Endian.big);
+    writeBuffer.putInt32(timestamp, endian: Endian.big);
+    writeBuffer.putInt32(msgId, endian: Endian.big);
+    writeBuffer.putUint8List(ConvertUtils.stringToBytesUtf8(content));
+    ByteData bytes = writeBuffer.done();
+    return Uint8List.view(
+        bytes.buffer, bytes.offsetInBytes, bytes.lengthInBytes);
+  }
+
+  bool fromDataV0(Uint8List bytes) {
+    if (bytes.lengthInBytes < 24) {
+      return false;
+    }
+    ReadBuffer readBuffer = ReadBuffer(ByteData.sublistView(bytes));
+    sender = readBuffer.getInt64(endian: Endian.big);
+    receiver = readBuffer.getInt64(endian: Endian.big);
+    timestamp = readBuffer.getInt32(endian: Endian.big);
+    msgId = readBuffer.getInt32(endian: Endian.big);
+    content = ConvertUtils.bytesToUtf8String(
+        readBuffer.getUint8List(bytes.lengthInBytes - 24));
+    return true;
+  }
+}
