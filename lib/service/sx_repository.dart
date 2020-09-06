@@ -9,9 +9,9 @@ abstract class Repository {
   Future<Menger> login(String loginName, String password);
   Future<List<Category>> fetchCategories();
   Future<List<Post>> fetchPosts(int categoryId, int lastId);
-  Future<List<Post>> fetchThumbUpPost(int pageNum);
-  Future<List<Post>> fetchFavoritePost(int pageNum);
-  Future<List<Post>> fetchDashboardPost(int pageNum);
+  Future<List<Post>> fetchThumbUpPost(int pageNum, int pageSize);
+  Future<List<Post>> fetchFavoritePost(int pageNum, int pageSize);
+  Future<List<Post>> fetchDashboardPost(int pageNum, int pageSize);
   Future<List<DiscussGroup>> fetchDiscussGroups();
   Future logout();
 }
@@ -55,20 +55,23 @@ class SXRepository extends Repository {
   }
 
   @override
-  Future<List<Post>> fetchFavoritePost(int pn) async {
-    var response = await http.post('post/favorite/list', data: {"pn": pn});
+  Future<List<Post>> fetchFavoritePost(int pn, int ps) async {
+    var response = await http
+        .post('post/menger/favorite/list', data: {"pn": pn, "ps": ps});
     return response.data.map<Post>((item) => Post.fromJson(item)).toList();
   }
 
   @override
-  Future<List<Post>> fetchThumbUpPost(int pn) async {
-    var response = await http.post('post/favorite/list', data: {"pn": pn});
+  Future<List<Post>> fetchThumbUpPost(int pn, int ps) async {
+    var response =
+        await http.post('post/menger/thumbup/list', data: {"pn": pn, "ps": ps});
     return response.data.map<Post>((item) => Post.fromJson(item)).toList();
   }
 
   @override
-  Future<List<Post>> fetchDashboardPost(int pn) async {
-    var response = await http.post('post/favorite/list', data: {"pn": pn});
+  Future<List<Post>> fetchDashboardPost(int pn, int ps) async {
+    var response =
+        await http.post('post/menger/list', data: {"pn": pn, "ps": ps});
     return response.data.map<Post>((item) => Post.fromJson(item)).toList();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flustars/flustars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sx_app/config/route_manager.dart';
 import 'package:sx_app/model/disscuss_group.dart';
 import 'package:sx_app/ui/page/chat/conversation_page.dart';
 
@@ -107,13 +108,8 @@ class _DiscussGroupItemState extends State<DiscussGroupItem> {
           ],
         ),
         onTap: () {
-          Navigator.of(context, rootNavigator: true).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) {
-                return ConversationPage(discussGroup: discussGroup);
-              },
-            ),
-          );
+          Navigator.of(context)
+              .pushNamed(RouteName.conversation, arguments: discussGroup);
         },
       ),
     );

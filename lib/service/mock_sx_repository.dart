@@ -269,17 +269,17 @@ class MockSXRepository extends Repository {
   }
 
   @override
-  Future<List<Post>> fetchFavoritePost(int pageNum) {
+  Future<List<Post>> fetchFavoritePost(int pageNum, int pageSize) {
     return Future.value(posts);
   }
 
   @override
-  Future<List<Post>> fetchThumbUpPost(int pageNum) {
+  Future<List<Post>> fetchThumbUpPost(int pageNum, int pageSize) {
     return Future.value(posts);
   }
 
   @override
-  Future<List<Post>> fetchDashboardPost(int pageNum) {
+  Future<List<Post>> fetchDashboardPost(int pageNum, int pageSize) {
     return Future.value(List<Post>());
   }
 

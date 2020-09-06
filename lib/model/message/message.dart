@@ -5,14 +5,19 @@ import 'package:sx_app/constants.dart';
 import 'package:sx_app/utils/convert_util.dart';
 
 typedef MessageCreator = IMessage Function();
+typedef VMessageCreator = IVersionMessage Function();
 
 Map<int, MessageCreator> messageCreators = {
   MSG_AUTH_TOKEN: () => AuthenticationToken(),
   MSG_AUTH_STATUS: () => AuthenticationStatus(),
+  MSG_SYNC_GROUP_BEGIN: () => GroupSyncKey(),
+  MSG_SYNC_GROUP_END: () => GroupSyncKey(),
+  MSG_METADATA: () => Metadata(),
+  MSG_ACK: () => MessageACK(),
 };
 
-Map<int, MessageCreator> vmessageCreators = {
-  MSG_AUTH_TOKEN: () => AuthenticationToken(),
+Map<int, VMessageCreator> vmessageCreators = {
+  MSG_GROUP_IM: () => IMMessage(),
 };
 
 abstract class IMessage {
@@ -158,6 +163,14 @@ class IMMessage implements IVersionMessage {
   int msgId;
   String content;
 
+  IMMessage({
+    this.sender = 0,
+    this.receiver = 0,
+    this.timestamp = 0,
+    this.msgId = 0,
+    this.content = '',
+  });
+
   @override
   bool fromData(int version, Uint8List bytes) {
     if (version == 0) {
@@ -198,5 +211,54 @@ class IMMessage implements IVersionMessage {
     content = ConvertUtils.bytesToUtf8String(
         readBuffer.getUint8List(bytes.lengthInBytes - 24));
     return true;
+  }
+}
+
+class Metadata implements IMessage {
+  int syncKey;
+  int prevSyncKey;
+
+  @override
+  bool fromData(Uint8List bytes) {
+    if (bytes.lengthInBytes < 16) {
+      return false;
+    }
+    ReadBuffer readBuffer = ReadBuffer(ByteData.sublistView(bytes));
+    syncKey = readBuffer.getInt64(endian: Endian.big);
+    prevSyncKey = readBuffer.getInt64(endian: Endian.big);
+    return true;
+  }
+
+  @override
+  Uint8List toData() {
+    WriteBuffer writeBuffer = WriteBuffer();
+    writeBuffer.putInt64(syncKey, endian: Endian.big);
+    writeBuffer.putInt64(prevSyncKey, endian: Endian.big);
+    ByteData bytes = writeBuffer.done();
+    return Uint8List.view(
+        bytes.buffer, bytes.offsetInBytes, bytes.lengthInBytes);
+  }
+}
+
+class MessageACK implements IMessage {
+  int seq;
+  int status;
+
+  @override
+  bool fromData(Uint8List bytes) {
+    ReadBuffer readBuffer = ReadBuffer(ByteData.sublistView(bytes));
+    seq = readBuffer.getInt32(endian: Endian.big);
+    status = readBuffer.getUint8();
+    return true;
+  }
+
+  @override
+  Uint8List toData() {
+    WriteBuffer writeBuffer = WriteBuffer();
+    writeBuffer.putInt32(seq, endian: Endian.big);
+    writeBuffer.putUint8(status);
+    ByteData bytes = writeBuffer.done();
+    return Uint8List.view(
+        bytes.buffer, bytes.offsetInBytes, bytes.lengthInBytes);
   }
 }

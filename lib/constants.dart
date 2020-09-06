@@ -5,7 +5,7 @@ const PLATFORM_IOS = 1;
 const PLATFORM_ANDROID = 2;
 const PLATFORM_WEB = 3;
 
-const DEFAULT_VERSION = 2;
+const DEFAULT_VERSION = 0;
 
 // cmd
 const MSG_AUTH_TOKEN = 15;
@@ -16,6 +16,12 @@ const MSG_SYNC_GROUP = 30; //同步超级群消息
 //服务端->客服端
 const MSG_SYNC_GROUP_BEGIN = 31;
 const MSG_SYNC_GROUP_END = 32;
+
+//消息的meta信息
+const MSG_METADATA = 37;
+
+const MSG_GROUP_IM = 8;
+const MSG_ACK = 5;
 
 const Color scaffolColor = Color(0xFFFEFEFE);
 const Color c1 = Color(0xFFB1A1EC);

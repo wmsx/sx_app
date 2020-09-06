@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:sx_app/constants.dart';
 import 'package:sx_app/model/disscuss_group.dart';
+import 'package:sx_app/model/message.dart';
 import 'package:sx_app/model/message/message.dart';
 import 'package:sx_app/model/message/protocol.dart';
 import 'package:sx_app/utils/common_util.dart';
@@ -12,13 +13,32 @@ import 'package:sx_app/view_model/discuss_group_list_model.dart';
 class SocketModel with ChangeNotifier {
   Socket socket;
 
+  Map<int, Msg> discussMsg = Map();
+
   DiscussGroupListModel _discussGroupListModel;
 
   bool _connected = false;
 
+  int get self => _discussGroupListModel.mengerModel.menger.id;
+
   bool get connected => _connected;
 
   DiscussGroupListModel get discussGroupListModel => _discussGroupListModel;
+
+  void sendMessage(String text, int groupId) {
+    IMMessage imMessage = IMMessage(
+      sender: self,
+      receiver: groupId,
+      content: text,
+    );
+    Message message = Message(
+      cmd: MSG_GROUP_IM,
+      version: DEFAULT_VERSION,
+      body: imMessage,
+    );
+
+    _sendMessage(message);
+  }
 
   void _dataHandler(Uint8List bytes) {
     Message message = Protocol.receiveMessage(ByteData.sublistView(bytes));
@@ -37,6 +57,13 @@ class SocketModel with ChangeNotifier {
       case MSG_SYNC_GROUP_END:
         debugPrint('开始同步消息 groupId: ${message.body.groupId}');
         debugPrint('开始同步消息 syncKey: ${message.body.syncKey}');
+        break;
+      case MSG_METADATA:
+        debugPrint('Metadata syncKey: ${message.body.syncKey}');
+        debugPrint('Metadata prevSyncKey: ${message.body.prevSyncKey}');
+        break;
+      case MSG_ACK:
+        debugPrint('Ack: ${message.body}');
         break;
       default:
         debugPrint('无效的消息');
@@ -58,8 +85,10 @@ class SocketModel with ChangeNotifier {
   }
 
   connect() async {
+    debugPrint('try to connect....');
     if (!_connected) {
-      socket = await Socket.connect('192.168.0.199', 23000);
+      // socket = await Socket.connect('192.168.0.199', 23000);
+      socket = await Socket.connect('192.168.0.107', 23000);
 
       socket.listen(
         _dataHandler,
@@ -67,16 +96,18 @@ class SocketModel with ChangeNotifier {
         onError: _errorHandler,
       );
       _connected = true;
+      debugPrint('connected....');
+      _auth();
       notifyListeners();
     }
   }
 
-  void auth() async {
+  void _auth() async {
     String deviceId = await CommonUtil.getDeviceId();
     int platformId = CommonUtil.getPlatformId();
     String token = _discussGroupListModel.mengerModel.menger.chatToken;
     AuthenticationToken authenticationToken = AuthenticationToken(
-      token: token,
+      token: 'ViaBB4hkGXG1z5Q16qWB7sPr',
       platformId: platformId,
       deviceId: deviceId,
     );

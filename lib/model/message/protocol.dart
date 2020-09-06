@@ -35,11 +35,11 @@ class Protocol {
 
   static ByteData writeMessage(Message message) {
     WriteBuffer buffer = WriteBuffer();
-    Uint8List bytes = message.body.toData();
-    _ProtocolHeader header = _ProtocolHeader(bytes.lengthInBytes, message.seq,
-        message.cmd, message.version, message.flag);
+    Uint8List bodyBytes = message.toData();
+    _ProtocolHeader header = _ProtocolHeader(bodyBytes.lengthInBytes,
+        message.seq, message.cmd, message.version, message.flag);
     _writeHeader(header, buffer);
-    buffer.putUint8List(bytes);
+    buffer.putUint8List(bodyBytes);
     return buffer.done();
   }
 

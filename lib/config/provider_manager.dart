@@ -14,9 +14,6 @@ List<SingleChildWidget> independentServices = [
   ChangeNotifierProvider<MengerModel>(
     create: (context) => MengerModel(),
   ),
-  ChangeNotifierProvider<SocketModel>(
-    create: (context) => SocketModel(),
-  ),
 ];
 
 /// 需要依赖的model

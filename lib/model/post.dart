@@ -22,7 +22,7 @@ class Post {
     post.menger = Menger.fromJson(map['menger']);
     post.items = List()
       ..addAll((map['items'] as List ?? []).map((e) => PostItem.fromJson(e)));
-    post.createAt = map['CreateAt'];
+    post.createAt = map['createAt'];
     return post;
   }
 }

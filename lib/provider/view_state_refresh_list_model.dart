@@ -26,7 +26,7 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
   Future<List<T>> refresh({bool init = false}) async {
     try {
       _currentPageNum = pageNumFirst;
-      var data = await loadData(pageNum: pageNumFirst);
+      var data = await loadData(pageNum: pageNumFirst, pageSize: pageSize);
       if (data.isEmpty) {
         refreshController.refreshCompleted(resetFooterState: true);
         list.clear();
@@ -82,7 +82,7 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
   }
 
   // 加载数据
-  Future<List<T>> loadData({int pageNum});
+  Future<List<T>> loadData({int pageNum, int pageSize});
 
   @override
   void dispose() {

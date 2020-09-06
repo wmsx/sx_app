@@ -18,6 +18,7 @@ class _DiscussGroupListPageState extends State<DiscussGroupListPage>
     super.build(context);
     return Consumer<SocketModel>(
       builder: (context, socketModel, child) {
+        socketModel.discussGroupListModel.initData();
         socketModel.connect();
         List<DiscussGroup> discussGroups =
             socketModel.discussGroupListModel.list;

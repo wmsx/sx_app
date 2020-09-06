@@ -4,7 +4,7 @@ import 'package:sx_app/view_model/mock_model.dart';
 
 class FavoritePostModel extends ViewStateRefreshListModel<Post> with MockModel {
   @override
-  Future<List<Post>> loadData({int pageNum}) {
-    return repository.fetchFavoritePost(pageNum);
+  Future<List<Post>> loadData({int pageNum, int pageSize}) {
+    return repository.fetchFavoritePost(pageNum, pageSize);
   }
 }

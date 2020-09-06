@@ -9,7 +9,8 @@ class Http extends BaseHttp {
   @override
   void init() async {
     var cookieJar = CookieJar();
-    options.baseUrl = 'http://api.wemeng.com/';
+    // options.baseUrl = 'http://api.wemeng.com/';
+    options.baseUrl = 'http://192.168.0.107:8080/';
     interceptors..add(ApiInterceptor())..add(CookieManager(cookieJar));
   }
 }
