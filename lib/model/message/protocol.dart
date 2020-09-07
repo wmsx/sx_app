@@ -14,23 +14,27 @@ class _ProtocolHeader {
 }
 
 class Protocol {
-  static Message receiveMessage(ByteData bytes) {
+  static List<Message> receiveMessages(ByteData bytes) {
+    List<Message> messages = List();
     ReadBuffer reader = ReadBuffer(bytes);
-    _ProtocolHeader header = _readerHeader(reader);
-    if (header.len < 0) {
-      debugPrint('invaild len: ${header.len}');
-      return null;
-    }
+    while (reader.hasRemaining) {
+      _ProtocolHeader header = _readerHeader(reader);
+      if (header.len < 0) {
+        debugPrint('invaild len: ${header.len}');
+        return null;
+      }
 
-    Uint8List body = reader.getUint8List(header.len);
-    Message message = Message(
-      cmd: header.cmd,
-      seq: header.seq,
-      version: header.version,
-      flag: header.flag,
-    );
-    message.fromData(body);
-    return message;
+      Uint8List body = reader.getUint8List(header.len);
+      Message message = Message(
+        cmd: header.cmd,
+        seq: header.seq,
+        version: header.version,
+        flag: header.flag,
+      );
+      message.fromData(body);
+      messages.add(message);
+    }
+    return messages;
   }
 
   static ByteData writeMessage(Message message) {

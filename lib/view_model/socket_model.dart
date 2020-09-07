@@ -41,32 +41,35 @@ class SocketModel with ChangeNotifier {
   }
 
   void _dataHandler(Uint8List bytes) {
-    Message message = Protocol.receiveMessage(ByteData.sublistView(bytes));
-    _handlerMessage(message);
+    List<Message> messages =
+        Protocol.receiveMessages(ByteData.sublistView(bytes));
+    _handlerMessage(messages);
   }
 
-  void _handlerMessage(Message message) {
-    switch (message.cmd) {
-      case MSG_AUTH_STATUS:
-        debugPrint('认证结果: ${message.body.status}');
-        break;
-      case MSG_SYNC_GROUP_BEGIN:
-        debugPrint('开始同步消息 groupId: ${message.body.groupId}');
-        debugPrint('开始同步消息 syncKey: ${message.body.syncKey}');
-        break;
-      case MSG_SYNC_GROUP_END:
-        debugPrint('开始同步消息 groupId: ${message.body.groupId}');
-        debugPrint('开始同步消息 syncKey: ${message.body.syncKey}');
-        break;
-      case MSG_METADATA:
-        debugPrint('Metadata syncKey: ${message.body.syncKey}');
-        debugPrint('Metadata prevSyncKey: ${message.body.prevSyncKey}');
-        break;
-      case MSG_ACK:
-        debugPrint('Ack: ${message.body}');
-        break;
-      default:
-        debugPrint('无效的消息');
+  void _handlerMessage(List<Message> messages) {
+    for (Message message in messages) {
+      switch (message.cmd) {
+        case MSG_AUTH_STATUS:
+          debugPrint('认证结果: ${message.body.status}');
+          break;
+        case MSG_SYNC_GROUP_BEGIN:
+          debugPrint('开始同步消息 groupId: ${message.body.groupId}');
+          debugPrint('开始同步消息 syncKey: ${message.body.syncKey}');
+          break;
+        case MSG_SYNC_GROUP_END:
+          debugPrint('开始同步消息 groupId: ${message.body.groupId}');
+          debugPrint('开始同步消息 syncKey: ${message.body.syncKey}');
+          break;
+        case MSG_METADATA:
+          debugPrint('Metadata syncKey: ${message.body.syncKey}');
+          debugPrint('Metadata prevSyncKey: ${message.body.prevSyncKey}');
+          break;
+        case MSG_ACK:
+          debugPrint('Ack: ${message.body.seq}');
+          break;
+        default:
+          debugPrint('无效的消息');
+      }
     }
   }
 
